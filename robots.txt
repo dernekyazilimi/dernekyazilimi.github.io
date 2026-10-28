@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dernekyazilimi.github.io/sitemap.xml
