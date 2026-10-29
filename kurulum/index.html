@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="tr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#163e33"><title>Kurulum — Dernek Yazılımı</title>
+<meta name="description" content="Gereksinimler, yerel kurulum adımları ve canlı ortam işletimi.">
+<link rel="canonical" href="https://dernekyazilimi.github.io/kurulum/"><meta property="og:title" content="Kurulum — Dernek Yazılımı">
+<meta property="og:description" content="Gereksinimler, yerel kurulum adımları ve canlı ortam işletimi."><meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:url" content="https://dernekyazilimi.github.io/kurulum/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css">
+</head><body>
+<a class="skip" href="#icerik">İçeriğe geç</a>
+<header class="header wrap site-header"><a class="brand" href="/" aria-label="Dernek Yazılımı ana sayfa"><img class="brand-svg" src="/assets/logo/logo.svg" alt="Dernek Yazılımı" width="209" height="40"></a><nav aria-label="Ana menü"><a href="/hakkinda/">Proje</a><a href="/moduller/">Modüller</a><a href="/entegrasyonlar/">Entegrasyonlar</a><a href="/kurulum/" aria-current="page">Kurulum</a><a href="/katki/">Katkı</a><a class="nav-cta" href="https://github.com/dernekyazilimi">GitHub ↗</a></nav></header>
+<main id="icerik"><div class="wrap document-hero"><p class="breadcrumb"><a href="/">Ana sayfa</a> / Kurulum</p><p class="eyebrow">DERNEK YAZILIMI / KURULUM</p><h1>Kendi sunucunuzda, kendi derneğiniz için.</h1><p class="intro">Gereksinimler, yerel kurulum adımları ve canlı ortam işletimi.</p></div><div class="wrap document-layout"><aside class="toc"><p class="eyebrow">BU SAYFADA</p><nav aria-label="Sayfa içeriği"><a href="#gereksinimler">Başlamadan önce</a><a href="#kaynak">1. Kaynak kodunu alın</a><a href="#ortam">2. Ortamı yapılandırın</a><a href="#veritabani">3. Veritabanı ve ön yüzü hazırlayın</a><a href="#calistirma">4. Yerel ortamda çalıştırın</a><a href="#kurum">5. Kurumunuzu ve modülleri ayarlayın</a><a href="#yayin">Canlı ortamda işletim</a></nav></aside><article class="document"><section id="gereksinimler"><h2>Başlamadan önce</h2><p>Bu rehber <code>INSTALLING.md</code> dosyasındaki temel adımları, mevcut paket yapılandırması ve proje notlarıyla tamamlar. Aşağıdaki akış yeni bir geliştirme kurulumu içindir; mevcut veritabanına uygulanmadan önce yedek alınmalıdır.</p><div class="table-scroll"><table><thead><tr><th>Bileşen</th><th>Gereksinim</th></tr></thead><tbody><tr><td>PHP</td><td>8.4; gereken uzantıları Composer ile doğrulayın. MySQL için PDO MySQL, kimlik doğrulama paketi için intl, PDF logoları için GD gerekir.</td></tr><tr><td>Composer</td><td>2.x; depodaki composer.lock ile kurulum</td></tr><tr><td>Veritabanı</td><td>MySQL ve uygulamaya ait bir veritabanı kullanıcısı</td></tr><tr><td>Node.js</td><td>package.json aralığı: ≥20 ve &lt;23; ön yüz derlemesi için</td></tr><tr><td>qpdf</td><td>Yazışma modülünün PDF dönüştürme desteği için</td></tr></tbody></table></div></section>
+<section id="kaynak"><h2>1. Kaynak kodunu alın</h2><pre><code>git clone https://github.com/lkdtr/dernekyazilimi.git
+cd dernekyazilimi
+cp .env.example .env
+composer install
+composer check-platform-reqs</code></pre><p>Kurulumda platform denetimlerini atlamak yerine eksik PHP uzantılarını tamamlayın. Örnek ortam dosyası LKD'ye özgü değerler ve açık modüller içerir; bunları kendi kurumunuza göre düzenleyin.</p></section>
+<section id="ortam"><h2>2. Ortamı yapılandırın</h2><p>Önce MySQL'de boş bir veritabanı ve bu veritabanına erişebilen kullanıcı oluşturun. <code>.env</code> içinde uygulama adresini, veritabanını ve e-posta ayarlarını düzenleyin. Yerel geliştirmede gerçek ileti göndermemek için aşağıdaki sürücüler kullanılabilir:</p><pre><code>APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=dernek
+DB_USERNAME=dernek
+DB_PASSWORD=yerel_veritabani_parolaniz
+MAIL_MAILER=log
+MESSAGING_SMS_DRIVER=log
+MESSAGING_WHATSAPP_DRIVER=log
+QUEUE_CONNECTION=database</code></pre><p><code>log</code> e-postaları teslim etmez; içerikleri uygulama günlüğüne yazar. Gerçek üyelik ve parola e-postaları için SMTP veya uygun e-posta sağlayıcısını yapılandırın.</p><pre><code>php artisan key:generate</code></pre><p>Bu komut yeni kurulum içindir. Çalışan bir kurulumun uygulama anahtarını değiştirmeyin; şifreli kayıtlar mevcut anahtara bağlıdır.</p></section>
+<section id="veritabani"><h2>3. Veritabanı ve ön yüzü hazırlayın</h2><pre><code>php artisan migrate
+php artisan db:seed --class=CitiesTableSeeder
+php artisan db:seed --class=UniversitiesTableSeeder
+npm ci
+npm run production</code></pre><p>Şehir ve üniversite kayıtları ilk kurulumun referans verilerini oluşturur. Kuruma özgü LKD seed dosyalarını genel bir dernek kurulumunda çalıştırmayın.</p></section>
+<section id="calistirma"><h2>4. Yerel ortamda çalıştırın</h2><pre><code>php artisan serve</code></pre><p>Uygulamayı <code>http://localhost:8000</code> adresinde açın. Kuyruğa alınan işleri işlemek için ayrı bir terminalde:</p><pre><code>php artisan queue:work</code></pre><p>İlk yönetici hesabını oluşturmak için belgelerde hazır bir kurulum komutu tanımlanmıyor. Hesap kaydı ve ilk sahip yetkisinin atanması, kurulumu yapan geliştirici tarafından mevcut kullanıcı/rol modeli üzerinden tamamlanmalıdır. Bu işlem tamamlanmadan yönetim paneli kurulumunu bitmiş saymayın.</p></section>
+<section id="kurum"><h2>5. Kurumunuzu ve modülleri ayarlayın</h2><p>Yönetim erişimi sağlandıktan sonra kurum adı, logo, iletişim adresleri, sözleşmeler ve e-posta şablonlarını gözden geçirin. <code>.env</code> içindeki <code>MODULE_*</code> değişkenleriyle gereken modülleri seçin.</p><pre><code>MODULE_MEMBERSHIP=true
+MODULE_DUES=true
+MODULE_DONATION=true</code></pre><p>Değişiklikten sonra önbelleğe alınmış yapılandırmayı temizleyin:</p><pre><code>php artisan optimize:clear</code></pre><p><a href="/moduller/#etkinlestirme">Modül bağımlılıklarını inceleyin →</a></p></section>
+<section id="yayin"><h2>Canlı ortamda işletim</h2><ul><li>Web sunucusunun belge kökünü projenin <code>public/</code> dizinine yönlendirin; HTTPS kullanın.</li><li><code>APP_ENV=production</code>, <code>APP_DEBUG=false</code> ve gerçek <code>APP_URL</code> değerini ayarlayın.</li><li>Web uygulamasının <code>storage/</code> ve <code>bootstrap/cache/</code> dizinlerine yazabilmesini sağlayın.</li><li>Kuyruk çalışanını servis olarak çalıştırın; güncellemelerde <code>php artisan queue:restart</code> kullanın.</li><li>Zamanlayıcının her dakika <code>php artisan schedule:run</code> çalıştırmasını sağlayın. Hatırlatmalar ve bekleyen kart ödemesi kontrolleri buna bağlıdır.</li><li>Veritabanını, yüklenen dosyaları ve uygulama anahtarını güvenli biçimde yedekleyin; güncellemelerden önce geri dönüş planınızı kontrol edin.</li></ul><p>Yazışma PDF desteği gerekiyorsa sunucunuza <code>qpdf</code> kurun. Ödeme, e-posta, SMS ve diğer servislerin hesaplarını ayrıca yapılandırın.</p></section>
+<div class="source-note"><strong>Bu sayfanın kaynakları</strong><p><a href="https://github.com/lkdtr/dernekyazilimi/blob/main/INSTALLING.md">INSTALLING.md</a> · <a href="https://github.com/lkdtr/dernekyazilimi/blob/main/CLAUDE.md">CLAUDE.md</a> · <a href="https://github.com/lkdtr/dernekyazilimi/blob/main/composer.json">composer.json</a> · <a href="https://github.com/lkdtr/dernekyazilimi/blob/main/package.json">package.json</a></p><p>Proje belgelerinden uyarlanmıştır. Belge inceleme tarihi: 28 Ekim 2026. Kuruma özgü sunucu ve erişim bilgileri bu rehbere dahil edilmemiştir.</p></div><a class="next-page" href="/katki/"><span>Sıradaki sayfa</span><strong>Katkıda bulunun →</strong></a></article></div></main>
+<footer class="wrap site-footer"><a class="brand" href="/"><img class="brand-svg" src="/assets/logo/logo.svg" alt="Dernek Yazılımı" width="209" height="40"></a><p>Ortak ihtiyaçlar. Özgür çözümler.</p><div><a href="/hakkinda/#logo">Logo</a><a href="/lisans/">Lisans</a><a href="/katki/">Katkı</a><a href="https://github.com/dernekyazilimi">GitHub ↗</a></div></footer>
+</body></html>
