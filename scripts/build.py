@@ -3,6 +3,7 @@
 from pathlib import Path
 from html import escape
 import re
+import json
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://dernekyazilimi.github.io'
@@ -19,6 +20,20 @@ NAV = [('hakkinda', 'Proje'), ('moduller', 'Modüller'), ('entegrasyonlar', 'Ent
 BRAND = '<img class="brand-svg" src="/assets/logo/logo.svg" alt="Dernek Yazılımı" width="209" height="40">'
 def shell(slug, title, description, body):
     url = BASE + ('/' + slug + '/' if slug else '/')
+    full_title = f'{title} — Dernek Yazılımı'
+    graph = [
+        {'@type': 'WebSite', '@id': BASE+'/#website', 'url': BASE+'/', 'name': 'Dernek Yazılımı', 'inLanguage': 'tr-TR'},
+        {'@type': 'WebPage', '@id': url+'#webpage', 'url': url, 'name': full_title,
+         'description': description, 'inLanguage': 'tr-TR', 'isPartOf': {'@id': BASE+'/#website'},
+         'primaryImageOfPage': {'@type': 'ImageObject', 'url': BASE+'/assets/seo/sosyal-paylasim.png', 'width': 1200, 'height': 630}}
+    ]
+    if slug:
+        graph[1]['breadcrumb'] = {'@id': url+'#breadcrumb'}
+        graph.append({'@type': 'BreadcrumbList', '@id': url+'#breadcrumb', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Ana sayfa', 'item': BASE+'/'},
+            {'@type': 'ListItem', 'position': 2, 'name': title, 'item': url}
+        ]})
+    structured_data = json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False).replace('<', r'\u003c')
     links = ''.join(f'<a href="/{s}/"'+(' aria-current="page"' if s == slug else '')+f'>{label}</a>' for s,label in NAV)
     return f'''<!doctype html>
 <html lang="tr"><head>
@@ -27,6 +42,19 @@ def shell(slug, title, description, body):
 <meta name="description" content="{escape(description, quote=True)}">
 <link rel="canonical" href="{url}"><meta property="og:title" content="{escape(title, quote=True)} — Dernek Yazılımı">
 <meta property="og:description" content="{escape(description, quote=True)}"><meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:url" content="{url}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:site_name" content="Dernek Yazılımı">
+<meta property="og:image" content="{BASE}/assets/seo/sosyal-paylasim.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dernek Yazılımı — Birlikte daha fazlası. Üyelik, aidat, bağış ve gönüllülük.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{escape(full_title, quote=True)}">
+<meta name="twitter:description" content="{escape(description, quote=True)}">
+<meta name="twitter:image" content="{BASE}/assets/seo/sosyal-paylasim.png">
+<meta name="twitter:image:alt" content="Dernek Yazılımı — özgür dernek yönetim yazılımı">
+<script type="application/ld+json">{structured_data}</script>
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css">
 </head><body>
 <a class="skip" href="#icerik">İçeriğe geç</a>
@@ -36,7 +64,7 @@ def shell(slug, title, description, body):
 </body></html>'''
 
 home = (ROOT/'content/ana-sayfa.html').read_text()
-(ROOT/'index.html').write_text(shell('', 'Birlikte daha fazlası.', 'Üyelik, aidat, bağış ve gönüllü süreçlerini bir araya getiren özgür dernek yönetim yazılımı.', home))
+(ROOT/'index.html').write_text(shell('', 'Özgür Dernek Yönetim Yazılımı', 'Üyelik, aidat, bağış ve gönüllü süreçlerini bir araya getiren özgür dernek yönetim yazılımı.', home))
 for i,(slug,label,headline,description,sources) in enumerate(PAGES):
     content = (ROOT/f'content/{slug}.html').read_text()
     content = content.replace('{{LICENSE}}', escape((ROOT/'content/LICENSE.txt').read_text()))
@@ -50,4 +78,5 @@ for i,(slug,label,headline,description,sources) in enumerate(PAGES):
     (folder/'index.html').write_text(shell(slug,label,description,body))
 urls = [BASE+'/'] + [BASE+'/'+p[0]+'/' for p in PAGES]
 (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <url><loc>{u}</loc></url>\n' for u in urls)+'</urlset>\n')
-print(f'Generated {len(urls)} pages and sitemap.')
+(ROOT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /content/\nDisallow: /scripts/\n\nSitemap: {BASE}/sitemap.xml\n')
+print(f'Generated {len(urls)} pages, sitemap and robots.txt.')

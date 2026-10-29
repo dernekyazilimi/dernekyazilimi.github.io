@@ -1,3 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /content/
+Disallow: /scripts/
+
 Sitemap: https://dernekyazilimi.github.io/sitemap.xml

@@ -22,3 +22,9 @@ Ana sayfa, proje hakkında, modüller, entegrasyonlar, kurulum, katkı ve lisans
 GitHub Pages, `main` dalının kök dizininden yayın yapar. Üretilmiş HTML dosyaları depoda bulunduğundan Pages tarafında özel derleme gerekmez.
 
 Kaynak proje: https://github.com/lkdtr/dernekyazilimi
+
+## SEO
+
+`scripts/build.py`, yedi sayfanın canonical adreslerini, sayfaya özgü başlık/açıklamalarını, Open Graph ve X kartlarını, WebSite/WebPage ve alt sayfa BreadcrumbList JSON-LD verilerini üretir. Sitemap aynı sayfa listesinden türetilir; robots.txt sitemap adresini duyurur. İçerik kaynak klasörleri tarama dışında, sayfalar ve görsel varlıklar taramaya açıktır.
+
+Paylaşım görseli: `assets/seo/sosyal-paylasim.png` (1200×630). `scripts/check.py` sitemap kapsamını, robots erişimini, meta etiketlerini, görsel boyutlarını ve JSON-LD tutarlılığını kontrol eder. Search Console kaydı veya arama motoruna manuel gönderim yapılmamıştır.
