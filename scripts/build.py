@@ -42,6 +42,7 @@ def shell(slug, title, description, body):
 <meta name="description" content="{escape(description, quote=True)}">
 <link rel="canonical" href="{url}"><meta property="og:title" content="{escape(title, quote=True)} — Dernek Yazılımı">
 <meta property="og:description" content="{escape(description, quote=True)}"><meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:url" content="{url}">
+<meta name="google-site-verification" content="j6_uljYlRGv56WpgYGPcqRMnV8SQH3b9RziaYasDpI0">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:site_name" content="Dernek Yazılımı">
 <meta property="og:image" content="{BASE}/assets/seo/sosyal-paylasim.png">
