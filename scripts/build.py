@@ -7,7 +7,7 @@ import json
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://dernekyazilimi.github.io'
-REPO = 'https://github.com/lkdtr/dernekyazilimi/blob/main/'
+REPO = 'https://github.com/dernekyazilimi/dernekyazilimi/blob/main/'
 PAGES = [
  ('hakkinda', 'Proje hakkında', 'Ortak ihtiyaçlardan doğan özgür yazılım.', 'Projenin hikâyesi, yaklaşımı ve teknik temeli.', ['README.md', 'CLAUDE.md']),
  ('moduller', 'Modüller', 'Her ihtiyaca bir araç. Hepsi bir arada.', 'Üyelik, aidat, bağış ve gönüllülükten resmî yazışmaya uzanan modüller.', ['CLAUDE.md', 'config/modules.php']),

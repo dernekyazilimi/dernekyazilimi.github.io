@@ -21,7 +21,7 @@ Ana sayfa, proje hakkında, modüller, entegrasyonlar, kurulum, katkı ve lisans
 
 GitHub Pages, `main` dalının kök dizininden yayın yapar. Üretilmiş HTML dosyaları depoda bulunduğundan Pages tarafında özel derleme gerekmez.
 
-Kaynak proje: https://github.com/lkdtr/dernekyazilimi
+Kaynak proje: https://github.com/dernekyazilimi/dernekyazilimi
 
 ## SEO
 
