@@ -80,4 +80,28 @@ for i,(slug,label,headline,description,sources) in enumerate(PAGES):
 urls = [BASE+'/'] + [BASE+'/'+p[0]+'/' for p in PAGES]
 (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <url><loc>{u}</loc></url>\n' for u in urls)+'</urlset>\n')
 (ROOT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /content/\nDisallow: /scripts/\n\nSitemap: {BASE}/sitemap.xml\n')
-print(f'Generated {len(urls)} pages, sitemap and robots.txt.')
+llms_lines = [
+    '# Dernek Yazılımı',
+    '> Üyelik, aidat, bağış, gönüllülük ve resmî yazışma süreçlerini tek bir çatı altında birleştiren, PHP/Laravel tabanlı özgür ve açık kaynaklı dernek yönetim yazılımı (GNU GPLv3).',
+    '',
+    '## Dokümantasyon ve Sayfalar',
+    f'- [Ana Sayfa]({BASE}/): Dernek Yazılımı genel tanıtımı, temel ilkeler ve genel bakış.',
+]
+for slug, label, headline, description, _ in PAGES:
+    llms_lines.append(f'- [{label}]({BASE}/{slug}/): {headline} {description}')
+
+llms_lines.extend([
+    '',
+    '## Kaynaklar ve Depolar',
+    '- [GitHub Organizasyonu](https://github.com/dernekyazilimi): Dernek Yazılımı açık kaynak organizasyonu.',
+    '- [Kaynak Kod Deposu](https://github.com/dernekyazilimi/dernekyazilimi): Dernek Yazılımı ana uygulama deposu (Laravel).',
+    '- [Web Sitesi Deposu](https://github.com/dernekyazilimi/dernekyazilimi.github.io): Statik tanıtım ve dokümantasyon sitesi deposu.',
+    '',
+    '## Temel Harici Entegrasyonlar ve Araçlar',
+    '- [eyazisma.com.tr](https://www.eyazisma.com.tr/): Resmî yazışma modülü için elektronik imza araçları ve e-Yazışma kütüphaneleri.',
+    '- [iyzico](https://www.iyzico.com/): Kredi ve banka kartıyla aidat ve bağış tahsilatı (Checkout Form).',
+    '- [qpdf](https://qpdf.sourceforge.io/): e-Yazışma paketlerindeki PDF kopyalarının işlenmesi ve dönüştürülmesi.',
+    ''
+])
+(ROOT/'llms.txt').write_text('\n'.join(llms_lines))
+print(f'Generated {len(urls)} pages, sitemap, robots.txt and llms.txt.')

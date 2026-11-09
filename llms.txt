@@ -1,0 +1,21 @@
+# Dernek Yazılımı
+> Üyelik, aidat, bağış, gönüllülük ve resmî yazışma süreçlerini tek bir çatı altında birleştiren, PHP/Laravel tabanlı özgür ve açık kaynaklı dernek yönetim yazılımı (GNU GPLv3).
+
+## Dokümantasyon ve Sayfalar
+- [Ana Sayfa](https://dernekyazilimi.github.io/): Dernek Yazılımı genel tanıtımı, temel ilkeler ve genel bakış.
+- [Proje hakkında](https://dernekyazilimi.github.io/hakkinda/): Ortak ihtiyaçlardan doğan özgür yazılım. Projenin hikâyesi, yaklaşımı ve teknik temeli.
+- [Modüller](https://dernekyazilimi.github.io/moduller/): Her ihtiyaca bir araç. Hepsi bir arada. Üyelik, aidat, bağış ve gönüllülükten resmî yazışmaya uzanan modüller.
+- [Entegrasyonlar](https://dernekyazilimi.github.io/entegrasyonlar/): Derneğinizin araçlarıyla bağlantıda. Web sitesi, ödeme, iletişim ve veri aktarımı entegrasyonları.
+- [Kurulum](https://dernekyazilimi.github.io/kurulum/): Kendi sunucunuzda, kendi derneğiniz için. Gereksinimler, yerel kurulum adımları ve canlı ortam işletimi.
+- [Katkıda bulunun](https://dernekyazilimi.github.io/katki/): Bir katkı, birçok derneğe fayda. Test, dokümantasyon, topluluk ve kod katkısı için rehber.
+- [Lisans](https://dernekyazilimi.github.io/lisans/): Özgür yazılımın ortak zemini. Projenin GNU GPLv3 lisans belgesi ve tam metni.
+
+## Kaynaklar ve Depolar
+- [GitHub Organizasyonu](https://github.com/dernekyazilimi): Dernek Yazılımı açık kaynak organizasyonu.
+- [Kaynak Kod Deposu](https://github.com/dernekyazilimi/dernekyazilimi): Dernek Yazılımı ana uygulama deposu (Laravel).
+- [Web Sitesi Deposu](https://github.com/dernekyazilimi/dernekyazilimi.github.io): Statik tanıtım ve dokümantasyon sitesi deposu.
+
+## Temel Harici Entegrasyonlar ve Araçlar
+- [eyazisma.com.tr](https://www.eyazisma.com.tr/): Resmî yazışma modülü için elektronik imza araçları ve e-Yazışma kütüphaneleri.
+- [iyzico](https://www.iyzico.com/): Kredi ve banka kartıyla aidat ve bağış tahsilatı (Checkout Form).
+- [qpdf](https://qpdf.sourceforge.io/): e-Yazışma paketlerindeki PDF kopyalarının işlenmesi ve dönüştürülmesi.

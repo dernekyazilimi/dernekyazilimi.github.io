@@ -72,3 +72,12 @@ policy=RobotFileParser(); policy.parse(robots.splitlines())
 assert all(policy.can_fetch('Googlebot',url) for url in urls)
 assert policy.can_fetch('Googlebot',BASE+'/assets/seo/sosyal-paylasim.png')
 print('SEO: sitemap, robots, canonical, social images and JSON-LD pass.')
+
+llms=(ROOT/'llms.txt').read_text()
+assert llms.startswith('# Dernek Yazılımı')
+assert '\n> ' in llms
+assert f'{BASE}/' in llms
+for p in ['hakkinda', 'moduller', 'entegrasyonlar', 'kurulum', 'katki', 'lisans']:
+    assert f'{BASE}/{p}/' in llms, f'{p} missing from llms.txt'
+assert policy.can_fetch('Googlebot',BASE+'/llms.txt')
+print('llms.txt passes specification and link checks.')

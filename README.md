@@ -23,8 +23,8 @@ GitHub Pages, `main` dalının kök dizininden yayın yapar. Üretilmiş HTML do
 
 Kaynak proje: https://github.com/dernekyazilimi/dernekyazilimi
 
-## SEO
+## SEO ve LLM
 
-`scripts/build.py`, yedi sayfanın canonical adreslerini, sayfaya özgü başlık/açıklamalarını, Open Graph ve X kartlarını, WebSite/WebPage ve alt sayfa BreadcrumbList JSON-LD verilerini üretir. Sitemap aynı sayfa listesinden türetilir; robots.txt sitemap adresini duyurur. İçerik kaynak klasörleri tarama dışında, sayfalar ve görsel varlıklar taramaya açıktır.
+`scripts/build.py`, yedi sayfanın canonical adreslerini, sayfaya özgü başlık/açıklamalarını, Open Graph ve X kartlarını, WebSite/WebPage ve alt sayfa BreadcrumbList JSON-LD verilerini üretir. Sitemap aynı sayfa listesinden türetilir; robots.txt sitemap adresini duyurur. Ayrıca yapay zekâ ve LLM araçları için kök dizinde `llms.txt` indeksi oluşturulur. İçerik kaynak klasörleri tarama dışında, sayfalar ve görsel varlıklar taramaya açıktır.
 
-Paylaşım görseli: `assets/seo/sosyal-paylasim.png` (1200×630). `scripts/check.py` sitemap kapsamını, robots erişimini, meta etiketlerini, görsel boyutlarını ve JSON-LD tutarlılığını kontrol eder. Search Console kaydı veya arama motoruna manuel gönderim yapılmamıştır.
+Paylaşım görseli: `assets/seo/sosyal-paylasim.png` (1200×630). `scripts/check.py` sitemap kapsamını, robots erişimini, meta etiketlerini, görsel boyutlarını, JSON-LD tutarlılığını ve `llms.txt` geçerliliğini kontrol eder. Search Console kaydı veya arama motoruna manuel gönderim yapılmamıştır.
