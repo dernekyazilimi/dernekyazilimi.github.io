@@ -3,4 +3,4 @@ Allow: /
 Disallow: /content/
 Disallow: /scripts/
 
-Sitemap: https://dernekyazilimi.github.io/sitemap.xml
+Sitemap: https://www.dernekyazilimi.org/sitemap.xml

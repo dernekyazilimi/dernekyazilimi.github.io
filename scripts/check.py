@@ -32,7 +32,7 @@ import json
 import re
 import struct
 from xml.etree import ElementTree as ET
-BASE='https://dernekyazilimi.github.io'
+BASE='https://www.dernekyazilimi.org'
 canonical_urls=[]
 for path in pages:
     html=path.read_text()
@@ -59,6 +59,9 @@ for path in pages:
     graph=data['@graph']
     page=next(x for x in graph if x['@type']=='WebPage')
     assert page['url']==canonical
+    if path==ROOT/'index.html':
+        software=next(x for x in graph if x['@type']=='SoftwareApplication')
+        assert software['url']==BASE+'/'
     if path!=ROOT/'index.html':
         crumb=next(x for x in graph if x['@type']=='BreadcrumbList')
         assert crumb['itemListElement'][-1]['item']==canonical

@@ -1,6 +1,6 @@
 # Dernek Yazılımı web sitesi
 
-https://dernekyazilimi.github.io/
+https://www.dernekyazilimi.org/
 
 Türkçe, mobil uyumlu statik tanıtım ve dokümantasyon sitesi. Harici font, JavaScript veya Python paket bağımlılığı yoktur.
 

@@ -2,13 +2,13 @@
 > Üyelik, aidat, bağış, gönüllülük ve resmî yazışma süreçlerini tek bir çatı altında birleştiren, PHP/Laravel tabanlı özgür ve açık kaynaklı dernek yönetim yazılımı (GNU GPLv3).
 
 ## Dokümantasyon ve Sayfalar
-- [Ana Sayfa](https://dernekyazilimi.github.io/): Dernek Yazılımı genel tanıtımı, temel ilkeler ve genel bakış.
-- [Proje hakkında](https://dernekyazilimi.github.io/hakkinda/): Ortak ihtiyaçlardan doğan özgür yazılım. Projenin hikâyesi, yaklaşımı ve teknik temeli.
-- [Modüller](https://dernekyazilimi.github.io/moduller/): Her ihtiyaca bir araç. Hepsi bir arada. Üyelik, aidat, bağış ve gönüllülükten resmî yazışmaya uzanan modüller.
-- [Entegrasyonlar](https://dernekyazilimi.github.io/entegrasyonlar/): Derneğinizin araçlarıyla bağlantıda. Web sitesi, ödeme, iletişim ve veri aktarımı entegrasyonları.
-- [Kurulum](https://dernekyazilimi.github.io/kurulum/): Kendi sunucunuzda, kendi derneğiniz için. Gereksinimler, yerel kurulum adımları ve canlı ortam işletimi.
-- [Katkıda bulunun](https://dernekyazilimi.github.io/katki/): Bir katkı, birçok derneğe fayda. Test, dokümantasyon, topluluk ve kod katkısı için rehber.
-- [Lisans](https://dernekyazilimi.github.io/lisans/): Özgür yazılımın ortak zemini. Projenin GNU GPLv3 lisans belgesi ve tam metni.
+- [Ana Sayfa](https://www.dernekyazilimi.org/): Dernek Yazılımı genel tanıtımı, temel ilkeler ve genel bakış.
+- [Proje hakkında](https://www.dernekyazilimi.org/hakkinda/): Ortak ihtiyaçlardan doğan özgür yazılım. Linux Kullanıcıları Derneği deneyiminden doğan açık kaynaklı dernek yönetim sisteminin hikâyesi, mimarisi ve teknik temeli.
+- [Modüller](https://www.dernekyazilimi.org/moduller/): Her ihtiyaca bir araç. Hepsi bir arada. Üye takip, aidat yönetimi, bağış tahsilatı, gönüllü organizasyonu, duyurular ve e-Yazışma resmî evrak süreçlerini kapsayan modüler dernek araçları.
+- [Entegrasyonlar](https://www.dernekyazilimi.org/entegrasyonlar/): Derneğinizin araçlarıyla bağlantıda. iyzico kartlı ödeme, NetGSM SMS, e-posta, eyazisma.com.tr e-imza araçları, DERBİS üye aktarımı ve WordPress web sitesi API entegrasyonları.
+- [Kurulum](https://www.dernekyazilimi.org/kurulum/): Kendi sunucunuzda, kendi derneğiniz için. PHP 8.4, Laravel ve MySQL gereksinimleri, yerel geliştirme ortamı hazırlığı, ortam değişkenleri ve canlı sunucu işletim rehberi.
+- [Katkıda bulunun](https://www.dernekyazilimi.org/katki/): Bir katkı, birçok derneğe fayda. Dernek Yazılımı'na kod, test, dokümantasyon, hata bildirimi ve kullanım deneyimiyle katkıda bulunma rehberi ve topluluk kuralları.
+- [Lisans](https://www.dernekyazilimi.org/lisans/): Özgür yazılımın ortak zemini. Dernek Yazılımı'nın özgür yazılım ilkelerini ve kullanıcı haklarını koruyan GNU General Public License v3 (GPLv3) tam lisans metni.
 
 ## Kaynaklar ve Depolar
 - [GitHub Organizasyonu](https://github.com/dernekyazilimi): Dernek Yazılımı açık kaynak organizasyonu.
