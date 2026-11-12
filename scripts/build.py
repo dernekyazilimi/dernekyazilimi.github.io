@@ -9,10 +9,10 @@ ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://www.dernekyazilimi.org'
 REPO = 'https://github.com/dernekyazilimi/dernekyazilimi/blob/main/'
 PAGES = [
- ('hakkinda', 'Proje hakkında', 'Proje Hakkında', 'Ortak ihtiyaçlardan doğan özgür yazılım.', 'Linux Kullanıcıları Derneği deneyiminden doğan açık kaynaklı dernek yönetim sisteminin hikâyesi, mimarisi ve teknik temeli.', ['README.md', 'CLAUDE.md']),
+ ('hakkinda', 'Proje hakkında', 'Proje Hakkında', 'Ortak ihtiyaçlardan doğan özgür yazılım.', 'Linux Kullanıcıları Derneği deneyiminden doğan ücretsiz ve açık kaynak dernek yazılımının hikâyesi, mimarisi ve teknik temeli.', ['README.md', 'CLAUDE.md']),
  ('moduller', 'Modüller', 'Dernek Modülleri: Üye Takip, Aidat, Bağış ve e-Yazışma', 'Her ihtiyaca bir araç. Hepsi bir arada.', 'Üye takip, aidat yönetimi, bağış tahsilatı, gönüllü organizasyonu, duyurular ve e-Yazışma resmî evrak süreçlerini kapsayan modüler dernek araçları.', ['CLAUDE.md', 'config/modules.php']),
  ('entegrasyonlar', 'Entegrasyonlar', 'Entegrasyonlar: Ödeme, SMS, e-İmza ve DERBİS', 'Derneğinizin araçlarıyla bağlantıda.', 'iyzico kartlı ödeme, NetGSM SMS, e-posta, eyazisma.com.tr e-imza araçları, DERBİS üye aktarımı ve WordPress web sitesi API entegrasyonları.', ['CLAUDE.md', 'INSTALLING.md']),
- ('kurulum', 'Kurulum', 'Kurulum Rehberi: Sunucu ve Ortam Gereksinimleri', 'Kendi sunucunuzda, kendi derneğiniz için.', 'PHP 8.4, Laravel ve MySQL gereksinimleri, yerel geliştirme ortamı hazırlığı, ortam değişkenleri ve canlı sunucu işletim rehberi.', ['INSTALLING.md', 'CLAUDE.md', 'composer.json', 'package.json']),
+ ('kurulum', 'Kurulum', 'Kurulum Rehberi: Sunucu ve Ortam Gereksinimleri', 'Kendi sunucunuzda, kendi derneğiniz için.', 'Self-hosted dernek yazılımı kurulumu: PHP 8.4, Laravel ve MySQL gereksinimleri, yerel geliştirme ortamı, ortam değişkenleri ve canlı sunucu işletim rehberi.', ['INSTALLING.md', 'CLAUDE.md', 'composer.json', 'package.json']),
  ('katki', 'Katkıda bulunun', 'Katkıda Bulunun: Açık Kaynak Geliştirme Rehberi', 'Bir katkı, birçok derneğe fayda.', 'Dernek Yazılımı\'na kod, test, dokümantasyon, hata bildirimi ve kullanım deneyimiyle katkıda bulunma rehberi ve topluluk kuralları.', ['CONTRIBUTING.md', 'CLAUDE.md']),
  ('lisans', 'Lisans', 'Lisans: GNU General Public License v3 (GPLv3)', 'Özgür yazılımın ortak zemini.', 'Dernek Yazılımı\'nın özgür yazılım ilkelerini ve kullanıcı haklarını koruyan GNU General Public License v3 (GPLv3) tam lisans metni.', ['README.md', 'LICENSE', 'LICENSE.md']),
 ]
@@ -77,7 +77,7 @@ def shell(slug, title, description, body, breadcrumb_label=None):
 </body></html>'''
 
 home = (ROOT/'content/ana-sayfa.html').read_text()
-(ROOT/'index.html').write_text(shell('', 'Özgür Dernek Yönetim Yazılımı', 'Üye takibi, aidat, bağış, gönüllü ve resmî yazışma süreçlerini tek bir çatı altında birleştiren açık kaynaklı ve özgür dernek yönetim yazılımı.', home))
+(ROOT/'index.html').write_text(shell('', 'Ücretsiz ve Açık Kaynak Dernek Yazılımı', 'Ücretsiz, açık kaynak ve self-hosted dernek yazılımı: üye takibi, aidat, bağış, gönüllü ve resmî yazışma süreçlerini tek çatı altında birleştiren özgür dernek yönetim sistemi.', home))
 for i,(slug,label,title,headline,description,sources) in enumerate(PAGES):
     content = (ROOT/f'content/{slug}.html').read_text()
     content = content.replace('{{LICENSE}}', escape((ROOT/'content/LICENSE.txt').read_text()))
@@ -95,7 +95,7 @@ urls = [BASE+'/'] + [BASE+'/'+p[0]+'/' for p in PAGES]
 (ROOT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /content/\nDisallow: /scripts/\n\nSitemap: {BASE}/sitemap.xml\n')
 llms_lines = [
     '# Dernek Yazılımı',
-    '> Üyelik, aidat, bağış, gönüllülük ve resmî yazışma süreçlerini tek bir çatı altında birleştiren, PHP/Laravel tabanlı özgür ve açık kaynaklı dernek yönetim yazılımı (GNU GPLv3).',
+    '> Üyelik, aidat, bağış, gönüllülük ve resmî yazışma süreçlerini tek bir çatı altında birleştiren, PHP/Laravel tabanlı ücretsiz, açık kaynak ve self-hosted dernek yazılımı (GNU GPLv3).',
     '',
     '## Dokümantasyon ve Sayfalar',
     f'- [Ana Sayfa]({BASE}/): Dernek Yazılımı genel tanıtımı, temel ilkeler ve genel bakış.',
