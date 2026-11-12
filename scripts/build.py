@@ -111,6 +111,7 @@ llms_lines.extend([
     '- [Web Sitesi Deposu](https://github.com/dernekyazilimi/dernekyazilimi.github.io): Statik tanıtım ve dokümantasyon sitesi deposu.',
     '',
     '## Temel Harici Entegrasyonlar ve Araçlar',
+    '- [Kurulum hizmeti](https://www.kalehost.net/dernek-yazilimi): Portalın sizin için kurulmasını isteyen dernekler için ücretli kurulum hizmeti; yazılımın kendisi ücretsizdir.',
     '- [eyazisma.com.tr](https://www.eyazisma.com.tr/): Resmî yazışma modülü için elektronik imza araçları ve e-Yazışma kütüphaneleri.',
     '- [iyzico](https://www.iyzico.com/): Kredi ve banka kartıyla aidat ve bağış tahsilatı (Checkout Form).',
     '- [qpdf](https://qpdf.sourceforge.io/): e-Yazışma paketlerindeki PDF kopyalarının işlenmesi ve dönüştürülmesi.',
