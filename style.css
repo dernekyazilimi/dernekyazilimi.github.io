@@ -15,3 +15,6 @@
 #cookie-banner button { min-width: 6rem; min-height: 44px; font: inherit; color: #163e33; background: white; border: 1px solid currentColor; border-radius: .4rem; cursor: pointer; }
 [data-cookie-preferences] { background: transparent; border: 0; padding: 0; color: inherit; font: inherit; cursor: pointer; }
 @media (max-width: 640px) { #cookie-banner { display: block; } #cookie-banner div { margin-top: .5rem; } #cookie-banner button { flex: 1; } }
+
+.site-footer { flex-wrap: wrap; }
+.site-footer .footer-legal { flex: 1 0 100%; display: flex; align-items: center; flex-wrap: wrap; gap: .75rem 1.25rem; padding-block: .75rem; }

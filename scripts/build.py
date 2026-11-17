@@ -85,7 +85,7 @@ def shell(slug, title, description, body, breadcrumb_label=None):
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="header wrap site-header"><a class="brand" href="/" aria-label="Dernek Yazılımı ana sayfa">{BRAND}</a><nav aria-label="Ana menü">{links}<a class="nav-cta" href="https://github.com/dernekyazilimi">GitHub ↗</a></nav></header>
 {body}
-<footer class="wrap site-footer"><a class="brand" href="/">{BRAND}</a><p>Ortak ihtiyaçlar. Özgür çözümler.</p><div><a href="/hakkinda/#logo">Logo</a><a href="/lisans/">Lisans</a><a href="/katki/">Katkı</a><a href="https://github.com/dernekyazilimi">GitHub ↗</a>{policy_links}{PREFERENCES}</div></footer>
+<footer class="wrap site-footer"><a class="brand" href="/">{BRAND}</a><p>Ortak ihtiyaçlar. Özgür çözümler.</p><div><a href="/hakkinda/#logo">Logo</a><a href="/lisans/">Lisans</a><a href="/katki/">Katkı</a><a href="https://github.com/dernekyazilimi">GitHub ↗</a></div><nav class="footer-legal" aria-labelledby="footer-legal-title"><strong id="footer-legal-title">Sözleşmeler ve politikalar</strong>{policy_links}{PREFERENCES}</nav></footer>
 {CONSENT_BODY}
 </body></html>'''
 
