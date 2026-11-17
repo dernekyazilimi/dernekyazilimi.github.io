@@ -50,6 +50,13 @@ def shell(slug, title, description, body, breadcrumb_label=None):
     return f'''<!doctype html>
 <html lang="tr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':
+new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+}})(window,document,'script','dataLayer','GTM-MW95NM39');</script>
+<!-- End Google Tag Manager -->
 <meta name="theme-color" content="#163e33"><title>{escape(title)} — Dernek Yazılımı</title>
 <meta name="description" content="{escape(description, quote=True)}">
 <link rel="canonical" href="{url}"><meta property="og:title" content="{escape(title, quote=True)} — Dernek Yazılımı">
@@ -70,6 +77,8 @@ def shell(slug, title, description, body, breadcrumb_label=None):
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css">
 </head><body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MW95NM39"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="header wrap site-header"><a class="brand" href="/" aria-label="Dernek Yazılımı ana sayfa">{BRAND}</a><nav aria-label="Ana menü">{links}<a class="nav-cta" href="https://github.com/dernekyazilimi">GitHub ↗</a></nav></header>
 {body}

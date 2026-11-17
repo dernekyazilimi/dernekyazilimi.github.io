@@ -1,6 +1,13 @@
 <!doctype html>
 <html lang="tr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MW95NM39');</script>
+<!-- End Google Tag Manager -->
 <meta name="theme-color" content="#163e33"><title>Kurulum Rehberi: Sunucu ve Ortam Gereksinimleri — Dernek Yazılımı</title>
 <meta name="description" content="Self-hosted dernek yazılımı kurulumu: PHP 8.4, Laravel ve MySQL gereksinimleri, yerel geliştirme ortamı, ortam değişkenleri ve canlı sunucu işletim rehberi.">
 <link rel="canonical" href="https://www.dernekyazilimi.org/kurulum/"><meta property="og:title" content="Kurulum Rehberi: Sunucu ve Ortam Gereksinimleri — Dernek Yazılımı">
@@ -21,6 +28,8 @@
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css">
 </head><body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MW95NM39"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="header wrap site-header"><a class="brand" href="/" aria-label="Dernek Yazılımı ana sayfa"><img class="brand-svg" src="/assets/logo/logo.svg" alt="Dernek Yazılımı" width="209" height="40"></a><nav aria-label="Ana menü"><a href="/hakkinda/">Proje</a><a href="/moduller/">Modüller</a><a href="/entegrasyonlar/">Entegrasyonlar</a><a href="/kurulum/" aria-current="page">Kurulum</a><a href="/katki/">Katkı</a><a class="nav-cta" href="https://github.com/dernekyazilimi">GitHub ↗</a></nav></header>
 <main id="icerik"><div class="wrap document-hero"><p class="breadcrumb"><a href="/">Ana sayfa</a> / Kurulum</p><p class="eyebrow">DERNEK YAZILIMI / KURULUM</p><h1>Kendi sunucunuzda, kendi derneğiniz için.</h1><p class="intro">Self-hosted dernek yazılımı kurulumu: PHP 8.4, Laravel ve MySQL gereksinimleri, yerel geliştirme ortamı, ortam değişkenleri ve canlı sunucu işletim rehberi.</p></div><div class="wrap document-layout"><aside class="toc"><p class="eyebrow">BU SAYFADA</p><nav aria-label="Sayfa içeriği"><a href="#gereksinimler">Başlamadan önce</a><a href="#kaynak">1. Kaynak kodunu alın</a><a href="#ortam">2. Ortamı yapılandırın</a><a href="#veritabani">3. Veritabanı ve ön yüzü hazırlayın</a><a href="#calistirma">4. Yerel ortamda çalıştırın</a><a href="#kurum">5. Kurumunuzu ve modülleri ayarlayın</a><a href="#yayin">Canlı ortamda işletim</a></nav></aside><article class="document"><section id="gereksinimler"><h2>Başlamadan önce</h2><p>Bu rehber <code>INSTALLING.md</code> dosyasındaki temel adımları, mevcut paket yapılandırması ve proje notlarıyla tamamlar. Aşağıdaki akış yeni bir geliştirme kurulumu içindir; mevcut veritabanına uygulanmadan önce yedek alınmalıdır.</p><p><strong>Kurulumu kendiniz yapmak istemiyor musunuz?</strong> Yazılım ücretsizdir; portalın sizin için kurulmasını isterseniz <a href="https://www.kalehost.net/dernek-yazilimi">ücretli kurulum hizmeti</a> alabilirsiniz.</p><div class="table-scroll"><table><thead><tr><th>Bileşen</th><th>Gereksinim</th></tr></thead><tbody><tr><td>PHP</td><td>8.4; gereken uzantıları Composer ile doğrulayın. MySQL için PDO MySQL, kimlik doğrulama paketi için intl, PDF logoları için GD gerekir.</td></tr><tr><td>Composer</td><td>2.x; depodaki composer.lock ile kurulum</td></tr><tr><td>Veritabanı</td><td>MySQL ve uygulamaya ait bir veritabanı kullanıcısı</td></tr><tr><td>Node.js</td><td>package.json aralığı: ≥20 ve &lt;23; ön yüz derlemesi için</td></tr><tr><td>qpdf</td><td>Yazışma modülünün PDF dönüştürme desteği için</td></tr></tbody></table></div></section>
