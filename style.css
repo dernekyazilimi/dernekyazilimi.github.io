@@ -19,9 +19,11 @@
 .site-footer { display: grid; grid-template-columns: minmax(12rem, 2fr) 1fr 1.5fr; align-items: start; gap: 2rem; padding-block: 2rem; }
 .site-footer .footer-brand, .site-footer nav { display: grid; justify-items: start; gap: .55rem; }
 .site-footer .footer-brand p { margin: 0; }
-.site-footer nav { font-size: .875rem; }
+.site-footer nav { grid-template-columns: minmax(0, 1fr); font-size: .875rem; font-weight: 400; }
+.site-footer nav > a { display: block; }
 .site-footer .footer-title { margin-bottom: .25rem; font-weight: 400; }
 @media (max-width: 640px) {
-  .site-footer { grid-template-columns: 1fr; gap: 1.25rem; }
+  .site-footer { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 1.25rem; }
+  .site-footer .footer-brand { grid-column: 1 / -1; }
   .site-footer nav { border-top: 1px solid var(--line); padding-top: 1rem; }
 }
