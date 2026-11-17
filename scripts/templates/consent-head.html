@@ -1,0 +1,24 @@
+<script>
+if (location.origin === 'https://www.dernekyazilimi.org' || location.origin === 'https://dernekyazilimi.org') {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+    wait_for_update: 500
+  });
+  gtag('set', 'ads_data_redaction', true);
+  if (document.cookie.split(';').some(item => item.trim() === 'cerez_onayi=kabul')) {
+    gtag('consent', 'update', {analytics_storage: 'granted'});
+  }
+  dataLayer.push({'gtm.start': Date.now(), event: 'gtm.js'});
+  const loader = document.createElement('script');
+  loader.async = true;
+  loader.src = 'https://www.googletagmanager.com/gtm.js?id={{GTM_ID}}';
+  document.head.appendChild(loader);
+}
+</script>

@@ -4,6 +4,7 @@ from pathlib import Path
 from html import escape
 import re
 import json
+import os
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://www.dernekyazilimi.org'
@@ -18,6 +19,16 @@ PAGES = [
 ]
 NAV = [('hakkinda', 'Proje'), ('moduller', 'Modüller'), ('entegrasyonlar', 'Entegrasyonlar'), ('kurulum', 'Kurulum'), ('katki', 'Katkı')]
 BRAND = '<img class="brand-svg" src="/assets/logo/logo.svg" alt="Dernek Yazılımı" width="209" height="40">'
+GTM_ID = os.environ.get('GTM_ID', 'GTM-MW95NM39')
+if GTM_ID and not re.fullmatch(r'GTM-[A-Z0-9]+', GTM_ID):
+    raise ValueError('Invalid GTM_ID')
+TEMPLATES = ROOT/'scripts/templates'
+CONSENT_HEAD = (TEMPLATES/'consent-head.html').read_text().replace('{{GTM_ID}}', GTM_ID) if GTM_ID else ''
+CONSENT_BODY = (TEMPLATES/'consent-body.html').read_text() if GTM_ID else ''
+PREFERENCES = '<button type="button" data-cookie-preferences hidden>Çerez tercihleri</button>' if GTM_ID else ''
+POLICIES = [('cerez-politikasi', 'Çerez politikası'), ('kvkk', 'KVKK aydınlatma metni'), ('gizlilik', 'Gizlilik politikası')]
+policy_links = ''.join(f'<a href="/{slug}/">{label}</a>' for slug, label in POLICIES)
+
 def shell(slug, title, description, body, breadcrumb_label=None):
     url = BASE + ('/' + slug + '/' if slug else '/')
     full_title = f'{title} — Dernek Yazılımı'
@@ -50,13 +61,7 @@ def shell(slug, title, description, body, breadcrumb_label=None):
     return f'''<!doctype html>
 <html lang="tr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':
-new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-}})(window,document,'script','dataLayer','GTM-MW95NM39');</script>
-<!-- End Google Tag Manager -->
+{CONSENT_HEAD}
 <meta name="theme-color" content="#163e33"><title>{escape(title)} — Dernek Yazılımı</title>
 <meta name="description" content="{escape(description, quote=True)}">
 <link rel="canonical" href="{url}"><meta property="og:title" content="{escape(title, quote=True)} — Dernek Yazılımı">
@@ -77,12 +82,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css">
 </head><body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MW95NM39"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="header wrap site-header"><a class="brand" href="/" aria-label="Dernek Yazılımı ana sayfa">{BRAND}</a><nav aria-label="Ana menü">{links}<a class="nav-cta" href="https://github.com/dernekyazilimi">GitHub ↗</a></nav></header>
 {body}
-<footer class="wrap site-footer"><a class="brand" href="/">{BRAND}</a><p>Ortak ihtiyaçlar. Özgür çözümler.</p><div><a href="/hakkinda/#logo">Logo</a><a href="/lisans/">Lisans</a><a href="/katki/">Katkı</a><a href="https://github.com/dernekyazilimi">GitHub ↗</a></div></footer>
+<footer class="wrap site-footer"><a class="brand" href="/">{BRAND}</a><p>Ortak ihtiyaçlar. Özgür çözümler.</p><div><a href="/hakkinda/#logo">Logo</a><a href="/lisans/">Lisans</a><a href="/katki/">Katkı</a><a href="https://github.com/dernekyazilimi">GitHub ↗</a>{policy_links}{PREFERENCES}</div></footer>
+{CONSENT_BODY}
 </body></html>'''
 
 home = (ROOT/'content/ana-sayfa.html').read_text()
@@ -98,8 +102,14 @@ for i,(slug,label,title,headline,description,sources) in enumerate(PAGES):
     folder = ROOT/slug
     folder.mkdir(exist_ok=True)
     (folder/'index.html').write_text(shell(slug,title,description,body,breadcrumb_label=label))
-today = '2026-11-09'
-urls = [BASE+'/'] + [BASE+'/'+p[0]+'/' for p in PAGES]
+for slug, title in POLICIES:
+    content = (ROOT/f'content/{slug}.html').read_text().replace('{{PREFERENCES}}', PREFERENCES)
+    body = f'<main id="icerik" class="wrap document"><h1>{title}</h1><p>Yürürlük tarihi: 17 Kasım 2026</p>{content}</main>'
+    folder = ROOT/slug
+    folder.mkdir(exist_ok=True)
+    (folder/'index.html').write_text(shell(slug, title, title + ' — Dernek Yazılımı tanıtım sitesi.', body))
+today = '2026-11-17'
+urls = [BASE+'/'] + [BASE+'/'+p[0]+'/' for p in PAGES + POLICIES]
 (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <url>\n    <loc>{u}</loc>\n    <lastmod>{today}</lastmod>\n  </url>\n' for u in urls)+'</urlset>\n')
 (ROOT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /content/\nDisallow: /scripts/\n\nSitemap: {BASE}/sitemap.xml\n')
 llms_lines = [

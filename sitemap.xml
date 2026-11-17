@@ -2,30 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.dernekyazilimi.org/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.dernekyazilimi.org/hakkinda/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.dernekyazilimi.org/moduller/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.dernekyazilimi.org/entegrasyonlar/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.dernekyazilimi.org/kurulum/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.dernekyazilimi.org/katki/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.dernekyazilimi.org/lisans/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dernekyazilimi.org/cerez-politikasi/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dernekyazilimi.org/kvkk/</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.dernekyazilimi.org/gizlilik/</loc>
+    <lastmod>2026-11-17</lastmod>
   </url>
 </urlset>

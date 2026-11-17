@@ -1,13 +1,31 @@
 <!doctype html>
 <html lang="tr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MW95NM39');</script>
-<!-- End Google Tag Manager -->
+<script>
+if (location.origin === 'https://www.dernekyazilimi.org' || location.origin === 'https://dernekyazilimi.org') {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+    wait_for_update: 500
+  });
+  gtag('set', 'ads_data_redaction', true);
+  if (document.cookie.split(';').some(item => item.trim() === 'cerez_onayi=kabul')) {
+    gtag('consent', 'update', {analytics_storage: 'granted'});
+  }
+  dataLayer.push({'gtm.start': Date.now(), event: 'gtm.js'});
+  const loader = document.createElement('script');
+  loader.async = true;
+  loader.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-MW95NM39';
+  document.head.appendChild(loader);
+}
+</script>
+
 <meta name="theme-color" content="#163e33"><title>Entegrasyonlar: Ödeme, SMS, e-İmza ve DERBİS — Dernek Yazılımı</title>
 <meta name="description" content="iyzico kartlı ödeme, NetGSM SMS, e-posta, eyazisma.com.tr e-imza araçları, DERBİS üye aktarımı ve WordPress web sitesi API entegrasyonları.">
 <link rel="canonical" href="https://www.dernekyazilimi.org/entegrasyonlar/"><meta property="og:title" content="Entegrasyonlar: Ödeme, SMS, e-İmza ve DERBİS — Dernek Yazılımı">
@@ -28,8 +46,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css">
 </head><body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MW95NM39"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="header wrap site-header"><a class="brand" href="/" aria-label="Dernek Yazılımı ana sayfa"><img class="brand-svg" src="/assets/logo/logo.svg" alt="Dernek Yazılımı" width="209" height="40"></a><nav aria-label="Ana menü"><a href="/hakkinda/">Proje</a><a href="/moduller/">Modüller</a><a href="/entegrasyonlar/" aria-current="page">Entegrasyonlar</a><a href="/kurulum/">Kurulum</a><a href="/katki/">Katkı</a><a class="nav-cta" href="https://github.com/dernekyazilimi">GitHub ↗</a></nav></header>
 <main id="icerik"><div class="wrap document-hero"><p class="breadcrumb"><a href="/">Ana sayfa</a> / Entegrasyonlar</p><p class="eyebrow">DERNEK YAZILIMI / ENTEGRASYONLAR</p><h1>Derneğinizin araçlarıyla bağlantıda.</h1><p class="intro">iyzico kartlı ödeme, NetGSM SMS, e-posta, eyazisma.com.tr e-imza araçları, DERBİS üye aktarımı ve WordPress web sitesi API entegrasyonları.</p></div><div class="wrap document-layout"><aside class="toc"><p class="eyebrow">BU SAYFADA</p><nav aria-label="Sayfa içeriği"><a href="#web">Derneğinizin web sitesiyle birlikte.</a><a href="#gomulu">Gömülü portal sayfaları</a><a href="#odeme">Ödeme altyapısı</a><a href="#mesaj">E-posta, SMS ve WhatsApp</a><a href="#aktarim">Veri aktarımı ve kurumsal adresler</a><a href="#eyazisma">e-Yazışma ve imzalama</a></nav></aside><article class="document"><section id="web"><h2>Derneğinizin web sitesiyle birlikte.</h2><p>Portalın web sitesi API'si, derneğin mevcut sitesiyle sunucudan sunucuya iletişim kurar. Kurum yapılandırması, sözleşmeler, telefon doğrulama, hesap oluşturma ve bağış süreçleri için uçlar bulunur.</p><p>İstekler kurum ayarlarında oluşturulan API anahtarı ve izinli site adresiyle doğrulanır. Bu anahtar tarayıcıya veya herkese açık JavaScript dosyasına konulmamalıdır. Bağlantı sitenin sunucusunda kurulmalıdır.</p><p>Proje notlarında ayrı bir WordPress eklentisiyle bağış, gönüllülük ve üyelik formlarının sitenin kendi teması içinde gösterilmesi tarif edilir. Kurulumda kullanılan eklentinin ve portal sürümünün uyumunu kontrol edin.</p></section>
@@ -39,5 +55,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section id="aktarim"><h2>Veri aktarımı ve kurumsal adresler</h2><h3>DERBİS dosyaları</h3><p>Kurum üyelik listesi dosyası üyelik modülünden önizlenerek içe aktarılır. Kişiler kimlik numarası veya e-posta üzerinden eşleştirilir; ek sütunlar özel alanlara eşlenebilir.</p><h3>Fonzip'ten geçiş</h3><p>Fonzip aktarımı; veriyi çekme, önizleme ve uygulama aşamalarına ayrılır. Kişi, üyelik, etiket, aidat, bağış ve profil fotoğrafları gibi verileri kapsar. Mevcut eşleşmeler izlenir; tekrar çalıştırma aynı kaydı yeniden oluşturmamak üzere tasarlanmıştır. Geçiş sonrasında modül kapatılabilir.</p><h3>PostfixAdmin</h3><p>E-posta yönlendirme modülü PostfixAdmin XML-RPC üzerinden çalışır. Uygun sıfatlara ve alan adlarına göre kişisel adresler tanımlanır. Bunun için ayrıca yapılandırılmış bir posta sunucusu gerekir.</p></section>
 <section id="eyazisma"><h2>e-Yazışma ve imzalama</h2><p>Yazışma modülü e-Yazışma paketleri oluşturur. Proje içinde <a href="https://www.eyazisma.com.tr/">eyazisma.com.tr</a> tarafından geliştirilen elektronik imza araçları ve kütüphaneleri kullanılmaktadır. Elektronik imza ve mühür işlemleri bu araçlar ve kullanıcının bilgisayarındaki imza köprüsüyle tamamlanır; portal tek başına elektronik imza üretmez.</p><p>PDF okuma kopyalarında sıkıştırılmış PDF nesnelerinin dönüştürülmesi için <code>qpdf</code> kullanılır. Özgün dosya ve imzalı ekler korunur.</p></section>
 <div class="source-note"><strong>Bu sayfanın kaynakları</strong><p><a href="https://github.com/dernekyazilimi/dernekyazilimi/blob/main/CLAUDE.md">CLAUDE.md</a> · <a href="https://github.com/dernekyazilimi/dernekyazilimi/blob/main/INSTALLING.md">INSTALLING.md</a></p><p>Proje belgelerinden uyarlanmıştır. Belge inceleme tarihi: 28 Ekim 2026. Kuruma özgü sunucu ve erişim bilgileri bu rehbere dahil edilmemiştir.</p></div><a class="next-page" href="/kurulum/"><span>Sıradaki sayfa</span><strong>Kurulum →</strong></a></article></div></main>
-<footer class="wrap site-footer"><a class="brand" href="/"><img class="brand-svg" src="/assets/logo/logo.svg" alt="Dernek Yazılımı" width="209" height="40"></a><p>Ortak ihtiyaçlar. Özgür çözümler.</p><div><a href="/hakkinda/#logo">Logo</a><a href="/lisans/">Lisans</a><a href="/katki/">Katkı</a><a href="https://github.com/dernekyazilimi">GitHub ↗</a></div></footer>
+<footer class="wrap site-footer"><a class="brand" href="/"><img class="brand-svg" src="/assets/logo/logo.svg" alt="Dernek Yazılımı" width="209" height="40"></a><p>Ortak ihtiyaçlar. Özgür çözümler.</p><div><a href="/hakkinda/#logo">Logo</a><a href="/lisans/">Lisans</a><a href="/katki/">Katkı</a><a href="https://github.com/dernekyazilimi">GitHub ↗</a><a href="/cerez-politikasi/">Çerez politikası</a><a href="/kvkk/">KVKK aydınlatma metni</a><a href="/gizlilik/">Gizlilik politikası</a><button type="button" data-cookie-preferences hidden>Çerez tercihleri</button></div></footer>
+<section id="cookie-banner" aria-label="Çerez tercihleri" hidden>
+  <p>Ziyaret ettiğiniz sayfaları Google Analytics ile ölçmemize izin veriyor musunuz? Veriler yurt dışında işlenebilir. <a href="/cerez-politikasi/">Çerez politikası</a></p>
+  <div><button type="button" data-choice="red">Reddet</button><button type="button" data-choice="kabul">Kabul et</button></div>
+</section>
+<script src="/assets/consent.js" defer></script>
+
 </body></html>

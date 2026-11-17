@@ -1,13 +1,31 @@
 <!doctype html>
 <html lang="tr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MW95NM39');</script>
-<!-- End Google Tag Manager -->
+<script>
+if (location.origin === 'https://www.dernekyazilimi.org' || location.origin === 'https://dernekyazilimi.org') {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+    wait_for_update: 500
+  });
+  gtag('set', 'ads_data_redaction', true);
+  if (document.cookie.split(';').some(item => item.trim() === 'cerez_onayi=kabul')) {
+    gtag('consent', 'update', {analytics_storage: 'granted'});
+  }
+  dataLayer.push({'gtm.start': Date.now(), event: 'gtm.js'});
+  const loader = document.createElement('script');
+  loader.async = true;
+  loader.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-MW95NM39';
+  document.head.appendChild(loader);
+}
+</script>
+
 <meta name="theme-color" content="#163e33"><title>Kurulum Rehberi: Sunucu ve Ortam Gereksinimleri — Dernek Yazılımı</title>
 <meta name="description" content="Self-hosted dernek yazılımı kurulumu: PHP 8.4, Laravel ve MySQL gereksinimleri, yerel geliştirme ortamı, ortam değişkenleri ve canlı sunucu işletim rehberi.">
 <link rel="canonical" href="https://www.dernekyazilimi.org/kurulum/"><meta property="og:title" content="Kurulum Rehberi: Sunucu ve Ortam Gereksinimleri — Dernek Yazılımı">
@@ -28,8 +46,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css">
 </head><body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MW95NM39"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="header wrap site-header"><a class="brand" href="/" aria-label="Dernek Yazılımı ana sayfa"><img class="brand-svg" src="/assets/logo/logo.svg" alt="Dernek Yazılımı" width="209" height="40"></a><nav aria-label="Ana menü"><a href="/hakkinda/">Proje</a><a href="/moduller/">Modüller</a><a href="/entegrasyonlar/">Entegrasyonlar</a><a href="/kurulum/" aria-current="page">Kurulum</a><a href="/katki/">Katkı</a><a class="nav-cta" href="https://github.com/dernekyazilimi">GitHub ↗</a></nav></header>
 <main id="icerik"><div class="wrap document-hero"><p class="breadcrumb"><a href="/">Ana sayfa</a> / Kurulum</p><p class="eyebrow">DERNEK YAZILIMI / KURULUM</p><h1>Kendi sunucunuzda, kendi derneğiniz için.</h1><p class="intro">Self-hosted dernek yazılımı kurulumu: PHP 8.4, Laravel ve MySQL gereksinimleri, yerel geliştirme ortamı, ortam değişkenleri ve canlı sunucu işletim rehberi.</p></div><div class="wrap document-layout"><aside class="toc"><p class="eyebrow">BU SAYFADA</p><nav aria-label="Sayfa içeriği"><a href="#gereksinimler">Başlamadan önce</a><a href="#kaynak">1. Kaynak kodunu alın</a><a href="#ortam">2. Ortamı yapılandırın</a><a href="#veritabani">3. Veritabanı ve ön yüzü hazırlayın</a><a href="#calistirma">4. Yerel ortamda çalıştırın</a><a href="#kurum">5. Kurumunuzu ve modülleri ayarlayın</a><a href="#yayin">Canlı ortamda işletim</a></nav></aside><article class="document"><section id="gereksinimler"><h2>Başlamadan önce</h2><p>Bu rehber <code>INSTALLING.md</code> dosyasındaki temel adımları, mevcut paket yapılandırması ve proje notlarıyla tamamlar. Aşağıdaki akış yeni bir geliştirme kurulumu içindir; mevcut veritabanına uygulanmadan önce yedek alınmalıdır.</p><p><strong>Kurulumu kendiniz yapmak istemiyor musunuz?</strong> Yazılım ücretsizdir; portalın sizin için kurulmasını isterseniz <a href="https://www.kalehost.net/dernek-yazilimi">ücretli kurulum hizmeti</a> alabilirsiniz.</p><div class="table-scroll"><table><thead><tr><th>Bileşen</th><th>Gereksinim</th></tr></thead><tbody><tr><td>PHP</td><td>8.4; gereken uzantıları Composer ile doğrulayın. MySQL için PDO MySQL, kimlik doğrulama paketi için intl, PDF logoları için GD gerekir.</td></tr><tr><td>Composer</td><td>2.x; depodaki composer.lock ile kurulum</td></tr><tr><td>Veritabanı</td><td>MySQL ve uygulamaya ait bir veritabanı kullanıcısı</td></tr><tr><td>Node.js</td><td>package.json aralığı: ≥20 ve &lt;23; ön yüz derlemesi için</td></tr><tr><td>qpdf</td><td>Yazışma modülünün PDF dönüştürme desteği için</td></tr></tbody></table></div></section>
@@ -62,5 +78,11 @@ MODULE_DUES=true
 MODULE_DONATION=true</code></pre><p>Değişiklikten sonra önbelleğe alınmış yapılandırmayı temizleyin:</p><pre><code>php artisan optimize:clear</code></pre><p><a href="/moduller/#etkinlestirme">Modül bağımlılıklarını inceleyin →</a></p></section>
 <section id="yayin"><h2>Canlı ortamda işletim</h2><ul><li>Web sunucusunun belge kökünü projenin <code>public/</code> dizinine yönlendirin; HTTPS kullanın.</li><li><code>APP_ENV=production</code>, <code>APP_DEBUG=false</code> ve gerçek <code>APP_URL</code> değerini ayarlayın.</li><li>Web uygulamasının <code>storage/</code> ve <code>bootstrap/cache/</code> dizinlerine yazabilmesini sağlayın.</li><li>Kuyruk çalışanını servis olarak çalıştırın; güncellemelerde <code>php artisan queue:restart</code> kullanın.</li><li>Zamanlayıcının her dakika <code>php artisan schedule:run</code> çalıştırmasını sağlayın. Hatırlatmalar ve bekleyen kart ödemesi kontrolleri buna bağlıdır.</li><li>Veritabanını, yüklenen dosyaları ve uygulama anahtarını güvenli biçimde yedekleyin; güncellemelerden önce geri dönüş planınızı kontrol edin.</li></ul><p>Yazışma PDF desteği gerekiyorsa sunucunuza <code>qpdf</code> kurun. Ödeme, e-posta, SMS ve diğer servislerin hesaplarını ayrıca yapılandırın.</p></section>
 <div class="source-note"><strong>Bu sayfanın kaynakları</strong><p><a href="https://github.com/dernekyazilimi/dernekyazilimi/blob/main/INSTALLING.md">INSTALLING.md</a> · <a href="https://github.com/dernekyazilimi/dernekyazilimi/blob/main/CLAUDE.md">CLAUDE.md</a> · <a href="https://github.com/dernekyazilimi/dernekyazilimi/blob/main/composer.json">composer.json</a> · <a href="https://github.com/dernekyazilimi/dernekyazilimi/blob/main/package.json">package.json</a></p><p>Proje belgelerinden uyarlanmıştır. Belge inceleme tarihi: 28 Ekim 2026. Kuruma özgü sunucu ve erişim bilgileri bu rehbere dahil edilmemiştir.</p></div><a class="next-page" href="/katki/"><span>Sıradaki sayfa</span><strong>Katkıda bulunun →</strong></a></article></div></main>
-<footer class="wrap site-footer"><a class="brand" href="/"><img class="brand-svg" src="/assets/logo/logo.svg" alt="Dernek Yazılımı" width="209" height="40"></a><p>Ortak ihtiyaçlar. Özgür çözümler.</p><div><a href="/hakkinda/#logo">Logo</a><a href="/lisans/">Lisans</a><a href="/katki/">Katkı</a><a href="https://github.com/dernekyazilimi">GitHub ↗</a></div></footer>
+<footer class="wrap site-footer"><a class="brand" href="/"><img class="brand-svg" src="/assets/logo/logo.svg" alt="Dernek Yazılımı" width="209" height="40"></a><p>Ortak ihtiyaçlar. Özgür çözümler.</p><div><a href="/hakkinda/#logo">Logo</a><a href="/lisans/">Lisans</a><a href="/katki/">Katkı</a><a href="https://github.com/dernekyazilimi">GitHub ↗</a><a href="/cerez-politikasi/">Çerez politikası</a><a href="/kvkk/">KVKK aydınlatma metni</a><a href="/gizlilik/">Gizlilik politikası</a><button type="button" data-cookie-preferences hidden>Çerez tercihleri</button></div></footer>
+<section id="cookie-banner" aria-label="Çerez tercihleri" hidden>
+  <p>Ziyaret ettiğiniz sayfaları Google Analytics ile ölçmemize izin veriyor musunuz? Veriler yurt dışında işlenebilir. <a href="/cerez-politikasi/">Çerez politikası</a></p>
+  <div><button type="button" data-choice="red">Reddet</button><button type="button" data-choice="kabul">Kabul et</button></div>
+</section>
+<script src="/assets/consent.js" defer></script>
+
 </body></html>
