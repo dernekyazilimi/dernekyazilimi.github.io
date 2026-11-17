@@ -85,7 +85,7 @@ def shell(slug, title, description, body, breadcrumb_label=None):
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="header wrap site-header"><a class="brand" href="/" aria-label="Dernek Yazılımı ana sayfa">{BRAND}</a><nav aria-label="Ana menü">{links}<a class="nav-cta" href="https://github.com/dernekyazilimi">GitHub ↗</a></nav></header>
 {body}
-<footer class="wrap site-footer"><div class="footer-brand"><a class="brand" href="/">{BRAND}</a><p>Ortak ihtiyaçlar. Özgür çözümler.</p></div><nav aria-labelledby="footer-project-title"><strong id="footer-project-title">Proje</strong><a href="/hakkinda/#logo">Logo</a><a href="/lisans/">Lisans</a><a href="/katki/">Katkı</a><a href="https://github.com/dernekyazilimi">GitHub ↗</a></nav><nav class="footer-legal" aria-labelledby="footer-legal-title"><strong id="footer-legal-title">Sözleşmeler ve politikalar</strong>{policy_links}{PREFERENCES}</nav></footer>
+<footer class="wrap site-footer"><div class="footer-brand"><a class="brand" href="/">{BRAND}</a><p>Ortak ihtiyaçlar. Özgür çözümler.</p></div><nav aria-labelledby="footer-project-title"><span class="footer-title" id="footer-project-title">Proje</span><a href="/hakkinda/#logo">Logo</a><a href="/lisans/">Lisans</a><a href="/katki/">Katkı</a><a href="https://github.com/dernekyazilimi">GitHub ↗</a></nav><nav class="footer-legal" aria-labelledby="footer-legal-title"><span class="footer-title" id="footer-legal-title">Sözleşmeler ve politikalar</span>{policy_links}{PREFERENCES}</nav></footer>
 {CONSENT_BODY}
 </body></html>'''
 
