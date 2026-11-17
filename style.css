@@ -21,7 +21,7 @@
 .site-footer .footer-brand p { margin: 0; }
 .site-footer nav { grid-template-columns: minmax(0, 1fr); font-size: .875rem; font-weight: 400; }
 .site-footer nav > a { display: block; }
-.site-footer .footer-title { margin-bottom: .25rem; font-weight: 400; }
+.site-footer .footer-title { margin-bottom: .25rem; font-weight: 700; }
 @media (max-width: 640px) {
   .site-footer { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 1.25rem; }
   .site-footer .footer-brand { grid-column: 1 / -1; }

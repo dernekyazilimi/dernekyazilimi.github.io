@@ -80,12 +80,12 @@ def shell(slug, title, description, body, breadcrumb_label=None):
 <meta name="twitter:image:alt" content="Dernek Yazılımı — özgür dernek yönetim yazılımı">
 <script type="application/ld+json">{structured_data}</script>
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css?v=20261117-footer2">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css?v=20261117-footer3">
 </head><body>
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="header wrap site-header"><a class="brand" href="/" aria-label="Dernek Yazılımı ana sayfa">{BRAND}</a><nav aria-label="Ana menü">{links}<a class="nav-cta" href="https://github.com/dernekyazilimi">GitHub ↗</a></nav></header>
 {body}
-<footer class="wrap site-footer"><div class="footer-brand"><a class="brand" href="/">{BRAND}</a><p>Ortak ihtiyaçlar. Özgür çözümler.</p></div><nav aria-labelledby="footer-project-title"><span class="footer-title" id="footer-project-title">Proje</span><a href="/hakkinda/#logo">Logo</a><a href="/lisans/">Lisans</a><a href="/katki/">Katkı</a><a href="https://github.com/dernekyazilimi">GitHub ↗</a></nav><nav class="footer-legal" aria-labelledby="footer-legal-title"><span class="footer-title" id="footer-legal-title">Sözleşmeler ve politikalar</span>{policy_links}{PREFERENCES}</nav></footer>
+<footer class="wrap site-footer"><div class="footer-brand"><a class="brand" href="/">{BRAND}</a><p>Ortak ihtiyaçlar. Özgür çözümler.</p></div><nav aria-labelledby="footer-project-title"><span class="footer-title" id="footer-project-title">Proje</span><a href="/hakkinda/#logo">Proje Logosu</a><a href="/lisans/">Proje Lisansı</a><a href="/katki/">Katkıda Bulunma Rehberi</a><a href="https://github.com/dernekyazilimi">GitHub Proje Depoları ↗</a></nav><nav class="footer-legal" aria-labelledby="footer-legal-title"><span class="footer-title" id="footer-legal-title">Sözleşmeler ve politikalar</span>{policy_links}{PREFERENCES}</nav></footer>
 {CONSENT_BODY}
 </body></html>'''
 
