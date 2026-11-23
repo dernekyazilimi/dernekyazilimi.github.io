@@ -11,7 +11,7 @@ BASE = 'https://www.dernekyazilimi.org'
 REPO = 'https://github.com/dernekyazilimi/dernekyazilimi/blob/main/'
 PAGES = [
  ('hakkinda', 'Proje hakkında', 'Proje Hakkında: Açık Kaynak Dernek Yazılımı', 'Ortak ihtiyaçlardan doğan özgür yazılım.', 'Linux Kullanıcıları Derneği deneyiminden doğan ücretsiz ve açık kaynak dernek yazılımının hikâyesi, mimarisi ve teknik temeli.', ['README.md', 'CLAUDE.md']),
- ('moduller', 'Modüller', 'Modüller: Üye, Aidat, Bağış ve e-Yazışma', 'Her ihtiyaca bir araç. Hepsi bir arada.', 'Üye takip, aidat yönetimi, bağış tahsilatı, gönüllü organizasyonu, duyurular ve e-Yazışma resmî evrak süreçlerini kapsayan modüler dernek araçları.', ['CLAUDE.md', 'config/modules.php']),
+ ('moduller', 'Modüller', 'Modüller: Üye, Aidat, Bağış ve e-Yazışma', 'Modüller: Üye Takibi, Aidat, Bağış ve e-Yazışma', 'Üye takip, aidat yönetimi, bağış tahsilatı, gönüllü organizasyonu, duyurular ve e-Yazışma resmî evrak süreçlerini kapsayan modüler dernek araçları.', ['CLAUDE.md', 'config/modules.php']),
  ('entegrasyonlar', 'Entegrasyonlar', 'Entegrasyonlar: Ödeme, SMS, e-İmza ve DERBİS', 'Derneğinizin araçlarıyla bağlantıda.', 'iyzico kartlı ödeme, NetGSM SMS, e-posta, eyazisma.com.tr e-imza araçları, DERBİS üye aktarımı ve WordPress web sitesi API entegrasyonları.', ['CLAUDE.md', 'INSTALLING.md']),
  ('kurulum', 'Kurulum', 'Kurulum Rehberi: Sunucu Gereksinimleri', 'Kendi sunucunuzda, kendi derneğiniz için.', 'Self-hosted dernek yazılımı kurulumu: PHP 8.4, Laravel ve MySQL gereksinimleri, yerel geliştirme ortamı, ortam değişkenleri ve canlı sunucu işletim rehberi.', ['INSTALLING.md', 'CLAUDE.md', 'composer.json', 'package.json']),
  ('katki', 'Katkıda bulunun', 'Katkıda Bulunun: Geliştirici Rehberi', 'Bir katkı, birçok derneğe fayda.', 'Dernek Yazılımı\'na kod, test, dokümantasyon, hata bildirimi ve kullanım deneyimiyle katkıda bulunma rehberi ve topluluk kuralları.', ['CONTRIBUTING.md', 'CLAUDE.md']),
@@ -85,7 +85,7 @@ def shell(slug, title, description, body, breadcrumb_label=None, brand_in_title=
 <meta name="twitter:image:alt" content="Dernek Yazılımı — özgür dernek yönetim yazılımı">
 <script type="application/ld+json">{structured_data}</script>
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css?v=20261123-sss-404">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css?v=20261123-sss2">
 </head><body>
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="header wrap site-header"><a class="brand" href="/" aria-label="Dernek Yazılımı ana sayfa">{BRAND}</a><nav aria-label="Ana menü">{links}<a class="nav-cta" href="https://github.com/dernekyazilimi">GitHub ↗</a></nav></header>
@@ -127,7 +127,8 @@ for slug, title in POLICIES:
     (folder/'index.html').write_text(shell(slug, title, title + ' — Dernek Yazılımı tanıtım sitesi.', body))
 
 # Sık sorulan sorular: bağımsız sayfa, ana sayfadaki SSS'den daha kapsamlı.
-SSS_TITLE = 'Sık Sorulan Sorular: Ücretsiz Dernek Yazılımı'
+SSS_TITLE = 'SSS: Ücretsiz Dernek Yazılımı — Kurulum, Lisans, Entegrasyon'
+SSS_H1 = 'Sık Sorulan Sorular: Ücretsiz Dernek Yazılımı'
 SSS_DESCRIPTION = ('Ücretsiz dernek yazılımının lisansı, kurulumu, ödeme entegrasyonları, veri güvenliği '
                    've katkı süreçleri hakkında sık sorulan sorular ve yanıtları.')
 sss_content = (ROOT/'content/sss.html').read_text()
@@ -137,7 +138,7 @@ sss_body = (
     f'<main id="icerik"><div class="wrap document-hero">'
     f'<p class="breadcrumb"><a href="/">Ana sayfa</a> / Sık sorulan sorular</p>'
     f'<p class="eyebrow">DERNEK YAZILIMI / SSS</p>'
-    f'<h1>Sık sorulan sorular.</h1>'
+    f'<h1>{SSS_H1}</h1>'
     f'<p class="intro">{SSS_DESCRIPTION} Aradığınız yanıt burada yoksa '
     f'<a href="https://github.com/dernekyazilimi/dernekyazilimi/issues">GitHub üzerinden sorabilirsiniz</a>.</p></div>'
     f'<div class="wrap document-layout"><aside class="toc"><p class="eyebrow">BU SAYFADA</p>'
@@ -154,6 +155,7 @@ sss_body = (
 (ROOT/'sss').mkdir(exist_ok=True)
 (ROOT/'sss/index.html').write_text(shell('sss', SSS_TITLE, SSS_DESCRIPTION, sss_body,
                                          breadcrumb_label='Sık sorulan sorular',
+                                         brand_in_title=True,
                                          extra_graph=faq_nodes(sss_content, BASE + '/sss/#faq')))
 
 # 404: GitHub Pages kök dizindeki 404.html dosyasını sunar.
