@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the static site from curated documentation. Python standard library only."""
 from pathlib import Path
-from html import escape
+from html import escape, unescape
 import re
 import json
 import os
@@ -10,14 +10,14 @@ ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://www.dernekyazilimi.org'
 REPO = 'https://github.com/dernekyazilimi/dernekyazilimi/blob/main/'
 PAGES = [
- ('hakkinda', 'Proje hakkında', 'Proje Hakkında', 'Ortak ihtiyaçlardan doğan özgür yazılım.', 'Linux Kullanıcıları Derneği deneyiminden doğan ücretsiz ve açık kaynak dernek yazılımının hikâyesi, mimarisi ve teknik temeli.', ['README.md', 'CLAUDE.md']),
- ('moduller', 'Modüller', 'Dernek Modülleri: Üye Takip, Aidat, Bağış ve e-Yazışma', 'Her ihtiyaca bir araç. Hepsi bir arada.', 'Üye takip, aidat yönetimi, bağış tahsilatı, gönüllü organizasyonu, duyurular ve e-Yazışma resmî evrak süreçlerini kapsayan modüler dernek araçları.', ['CLAUDE.md', 'config/modules.php']),
+ ('hakkinda', 'Proje hakkında', 'Proje Hakkında: Açık Kaynak Dernek Yazılımı', 'Ortak ihtiyaçlardan doğan özgür yazılım.', 'Linux Kullanıcıları Derneği deneyiminden doğan ücretsiz ve açık kaynak dernek yazılımının hikâyesi, mimarisi ve teknik temeli.', ['README.md', 'CLAUDE.md']),
+ ('moduller', 'Modüller', 'Modüller: Üye, Aidat, Bağış ve e-Yazışma', 'Her ihtiyaca bir araç. Hepsi bir arada.', 'Üye takip, aidat yönetimi, bağış tahsilatı, gönüllü organizasyonu, duyurular ve e-Yazışma resmî evrak süreçlerini kapsayan modüler dernek araçları.', ['CLAUDE.md', 'config/modules.php']),
  ('entegrasyonlar', 'Entegrasyonlar', 'Entegrasyonlar: Ödeme, SMS, e-İmza ve DERBİS', 'Derneğinizin araçlarıyla bağlantıda.', 'iyzico kartlı ödeme, NetGSM SMS, e-posta, eyazisma.com.tr e-imza araçları, DERBİS üye aktarımı ve WordPress web sitesi API entegrasyonları.', ['CLAUDE.md', 'INSTALLING.md']),
- ('kurulum', 'Kurulum', 'Kurulum Rehberi: Sunucu ve Ortam Gereksinimleri', 'Kendi sunucunuzda, kendi derneğiniz için.', 'Self-hosted dernek yazılımı kurulumu: PHP 8.4, Laravel ve MySQL gereksinimleri, yerel geliştirme ortamı, ortam değişkenleri ve canlı sunucu işletim rehberi.', ['INSTALLING.md', 'CLAUDE.md', 'composer.json', 'package.json']),
- ('katki', 'Katkıda bulunun', 'Katkıda Bulunun: Açık Kaynak Geliştirme Rehberi', 'Bir katkı, birçok derneğe fayda.', 'Dernek Yazılımı\'na kod, test, dokümantasyon, hata bildirimi ve kullanım deneyimiyle katkıda bulunma rehberi ve topluluk kuralları.', ['CONTRIBUTING.md', 'CLAUDE.md']),
- ('lisans', 'Lisans', 'Lisans: GNU General Public License v3 (GPLv3)', 'Özgür yazılımın ortak zemini.', 'Dernek Yazılımı\'nın özgür yazılım ilkelerini ve kullanıcı haklarını koruyan GNU General Public License v3 (GPLv3) tam lisans metni.', ['README.md', 'LICENSE', 'LICENSE.md']),
+ ('kurulum', 'Kurulum', 'Kurulum Rehberi: Sunucu Gereksinimleri', 'Kendi sunucunuzda, kendi derneğiniz için.', 'Self-hosted dernek yazılımı kurulumu: PHP 8.4, Laravel ve MySQL gereksinimleri, yerel geliştirme ortamı, ortam değişkenleri ve canlı sunucu işletim rehberi.', ['INSTALLING.md', 'CLAUDE.md', 'composer.json', 'package.json']),
+ ('katki', 'Katkıda bulunun', 'Katkıda Bulunun: Geliştirici Rehberi', 'Bir katkı, birçok derneğe fayda.', 'Dernek Yazılımı\'na kod, test, dokümantasyon, hata bildirimi ve kullanım deneyimiyle katkıda bulunma rehberi ve topluluk kuralları.', ['CONTRIBUTING.md', 'CLAUDE.md']),
+ ('lisans', 'Lisans', 'Lisans: GNU GPLv3 Açık Kaynak Lisansı', 'Özgür yazılımın ortak zemini.', 'Dernek Yazılımı\'nın özgür yazılım ilkelerini ve kullanıcı haklarını koruyan GNU General Public License v3 (GPLv3) tam lisans metni.', ['README.md', 'LICENSE', 'LICENSE.md']),
 ]
-NAV = [('hakkinda', 'Proje'), ('moduller', 'Modüller'), ('entegrasyonlar', 'Entegrasyonlar'), ('kurulum', 'Kurulum'), ('katki', 'Katkı')]
+NAV = [('hakkinda', 'Proje'), ('moduller', 'Modüller'), ('entegrasyonlar', 'Entegrasyonlar'), ('kurulum', 'Kurulum'), ('katki', 'Katkı'), ('sss', 'SSS')]
 BRAND = '<img class="brand-svg" src="/assets/logo/logo.svg" alt="Dernek Yazılımı" width="209" height="40">'
 GTM_ID = os.environ.get('GTM_ID', 'GTM-MW95NM39')
 if GTM_ID and not re.fullmatch(r'GTM-[A-Z0-9]+', GTM_ID):
@@ -29,9 +29,13 @@ PREFERENCES = '<button type="button" data-cookie-preferences hidden>Çerez terci
 POLICIES = [('cerez-politikasi', 'Çerez politikası'), ('kvkk', 'KVKK aydınlatma metni'), ('gizlilik', 'Gizlilik politikası')]
 policy_links = ''.join(f'<a href="/{slug}/">{label}</a>' for slug, label in POLICIES)
 
-def shell(slug, title, description, body, breadcrumb_label=None):
+def shell(slug, title, description, body, breadcrumb_label=None, brand_in_title=False, extra_graph=None,
+          canonical=True, noindex=False):
     url = BASE + ('/' + slug + '/' if slug else '/')
-    full_title = f'{title} — Dernek Yazılımı'
+    full_title = title if brand_in_title else f'{title} — Dernek Yazılımı'
+    canonical_tag = f'<link rel="canonical" href="{url}">' if canonical else ''
+    og_url_tag = f'<meta property="og:url" content="{url}">' if canonical else ''
+    robots = 'noindex, follow' if noindex else 'index, follow, max-image-preview:large'
     graph = [
         {'@type': 'WebSite', '@id': BASE+'/#website', 'url': BASE+'/', 'name': 'Dernek Yazılımı', 'inLanguage': 'tr-TR'},
         {'@type': 'WebPage', '@id': url+'#webpage', 'url': url, 'name': full_title,
@@ -50,6 +54,7 @@ def shell(slug, title, description, body, breadcrumb_label=None):
             'description': description,
             'url': BASE+'/'
         })
+    graph.extend(extra_graph or [])
     if slug:
         graph[1]['breadcrumb'] = {'@id': url+'#breadcrumb'}
         graph.append({'@type': 'BreadcrumbList', '@id': url+'#breadcrumb', 'itemListElement': [
@@ -62,12 +67,12 @@ def shell(slug, title, description, body, breadcrumb_label=None):
 <html lang="tr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 {CONSENT_HEAD}
-<meta name="theme-color" content="#163e33"><title>{escape(title)} — Dernek Yazılımı</title>
+<meta name="theme-color" content="#163e33"><title>{escape(full_title)}</title>
 <meta name="description" content="{escape(description, quote=True)}">
-<link rel="canonical" href="{url}"><meta property="og:title" content="{escape(title, quote=True)} — Dernek Yazılımı">
-<meta property="og:description" content="{escape(description, quote=True)}"><meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:url" content="{url}">
+{canonical_tag}<meta property="og:title" content="{escape(full_title, quote=True)}">
+<meta property="og:description" content="{escape(description, quote=True)}"><meta property="og:type" content="website"><meta property="og:locale" content="tr_TR">{og_url_tag}
 <meta name="google-site-verification" content="j6_uljYlRGv56WpgYGPcqRMnV8SQH3b9RziaYasDpI0">
-<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="robots" content="{robots}">
 <meta property="og:site_name" content="Dernek Yazılımı">
 <meta property="og:image" content="{BASE}/assets/seo/sosyal-paylasim.png">
 <meta property="og:image:type" content="image/png">
@@ -80,17 +85,29 @@ def shell(slug, title, description, body, breadcrumb_label=None):
 <meta name="twitter:image:alt" content="Dernek Yazılımı — özgür dernek yönetim yazılımı">
 <script type="application/ld+json">{structured_data}</script>
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css?v=20261117-footer3">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css?v=20261123-sss">
 </head><body>
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="header wrap site-header"><a class="brand" href="/" aria-label="Dernek Yazılımı ana sayfa">{BRAND}</a><nav aria-label="Ana menü">{links}<a class="nav-cta" href="https://github.com/dernekyazilimi">GitHub ↗</a></nav></header>
 {body}
-<footer class="wrap site-footer"><div class="footer-brand"><a class="brand" href="/">{BRAND}</a><p>Ortak ihtiyaçlar. Özgür çözümler.</p></div><nav aria-labelledby="footer-project-title"><span class="footer-title" id="footer-project-title">Proje</span><a href="/hakkinda/#logo">Proje Logosu</a><a href="/lisans/">Proje Lisansı</a><a href="/katki/">Katkıda Bulunma Rehberi</a><a href="https://github.com/dernekyazilimi">GitHub Proje Depoları ↗</a></nav><nav class="footer-legal" aria-labelledby="footer-legal-title"><span class="footer-title" id="footer-legal-title">Sözleşmeler ve politikalar</span>{policy_links}{PREFERENCES}</nav></footer>
+<footer class="wrap site-footer"><div class="footer-brand"><a class="brand" href="/">{BRAND}</a><p>Ortak ihtiyaçlar. Özgür çözümler.</p></div><nav aria-labelledby="footer-project-title"><span class="footer-title" id="footer-project-title">Proje</span><a href="/hakkinda/#logo">Proje Logosu</a><a href="/lisans/">Proje Lisansı</a><a href="/katki/">Katkıda Bulunma Rehberi</a><a href="/sss/">Sık Sorulan Sorular</a><a href="https://github.com/dernekyazilimi">GitHub Proje Depoları ↗</a></nav><nav class="footer-legal" aria-labelledby="footer-legal-title"><span class="footer-title" id="footer-legal-title">Sözleşmeler ve politikalar</span>{policy_links}{PREFERENCES}</nav></footer>
 {CONSENT_BODY}
 </body></html>'''
 
+def faq_nodes(html, page_id):
+    items = []
+    for question, answer in re.findall(r'<details>\s*<summary>(.*?)</summary>\s*<p>(.*?)</p>\s*</details>', html, re.S):
+        items.append({
+            '@type': 'Question',
+            'name': unescape(re.sub(r'<[^>]+>', '', question)).strip(),
+            'acceptedAnswer': {'@type': 'Answer', 'text': unescape(re.sub(r'<[^>]+>', '', answer)).strip()},
+        })
+    return [{'@type': 'FAQPage', '@id': page_id, 'mainEntity': items}] if items else None
+
+
 home = (ROOT/'content/ana-sayfa.html').read_text()
-(ROOT/'index.html').write_text(shell('', 'Ücretsiz ve Açık Kaynak Dernek Yazılımı', 'Ücretsiz, açık kaynak ve self-hosted dernek yazılımı: üye takibi, aidat, bağış, gönüllü ve resmî yazışma süreçlerini tek çatı altında birleştiren özgür dernek yönetim sistemi.', home))
+extra_graph = faq_nodes(home, BASE+'/#faq')
+(ROOT/'index.html').write_text(shell('', 'Dernek Yazılımı — Ücretsiz, Açık Kaynak, Self-Hosted', 'Ücretsiz, açık kaynak ve self-hosted dernek yazılımı: üye takibi, aidat, bağış, gönüllü ve resmî yazışma süreçleri tek çatı altında.', home, brand_in_title=True, extra_graph=extra_graph))
 for i,(slug,label,title,headline,description,sources) in enumerate(PAGES):
     content = (ROOT/f'content/{slug}.html').read_text()
     content = content.replace('{{LICENSE}}', escape((ROOT/'content/LICENSE.txt').read_text()))
