@@ -84,3 +84,29 @@ for p in ['hakkinda', 'moduller', 'entegrasyonlar', 'kurulum', 'katki', 'lisans'
     assert f'{BASE}/{p}/' in llms, f'{p} missing from llms.txt'
 assert policy.can_fetch('Googlebot',BASE+'/llms.txt')
 print('llms.txt passes specification and link checks.')
+
+not_found = ROOT/'404.html'
+assert not_found.exists(), '404.html missing'
+html = not_found.read_text()
+assert html.count('<h1>') == 1, '404.html must have exactly one h1'
+assert '<link rel="canonical"' not in html, '404.html must not declare a canonical URL'
+assert 'content="noindex, follow"' in html, '404.html must be noindex'
+assert BASE + '/404.html' not in urls, '404.html must stay out of the sitemap'
+assert (ROOT/'sss/index.html').exists(), 'sss page missing'
+sss = (ROOT/'sss/index.html').read_text()
+sss_data = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', sss, re.S)[1])
+sss_faq = next(x for x in sss_data['@graph'] if x['@type'] == 'FAQPage')
+assert len(sss_faq['mainEntity']) >= 10, 'sss page needs a complete FAQPage'
+assert 'href="/sss/"' in (ROOT/'index.html').read_text(), 'homepage must link to the sss page'
+
+# 404 page internal links must resolve too.
+for link in re.findall(r'href="(/[^"#]*)(#[^"]*)?"', html):
+    path, fragment = link
+    path = path.split('?')[0]
+    target = ROOT/path.lstrip('/')
+    if target.is_dir():
+        target = target/'index.html'
+    assert target.exists(), (link, '404.html')
+    if fragment:
+        assert fragment.lstrip('#') in pages[target].ids, (link, '404.html')
+print('404 and SSS pages pass checks.')

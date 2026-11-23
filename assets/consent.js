@@ -35,6 +35,7 @@
       document.cookie = 'cerez_onayi=' + value +
         '; Max-Age=15552000; Path=/; Domain=dernekyazilimi.org; SameSite=Lax; Secure';
       gtag('consent', 'update', {analytics_storage: value === 'kabul' ? 'granted' : 'denied'});
+      if (value === 'kabul') window.__loadGTM?.();
       if (value === 'red') clearAnalyticsCookies();
       banner.hidden = true;
       reserveSpace();

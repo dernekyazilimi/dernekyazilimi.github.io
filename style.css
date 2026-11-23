@@ -49,3 +49,9 @@
   .process { grid-template-columns: 1fr; }
   .process article { padding: 20px; }
 }
+.faq-more { margin: 26px 0 0; font-size: 14px; color: var(--text); }
+.faq-more a { text-decoration: underline; text-underline-offset: 3px; }
+.error-page { padding-top: 70px; padding-bottom: 90px; }
+.error-page h1 { font-size: clamp(30px, 4vw, 46px); letter-spacing: -1.5px; line-height: 1.12; margin: 18px 0 16px; }
+.error-page > p { max-width: 62ch; }
+.error-page .start-grid { margin-top: 32px; }

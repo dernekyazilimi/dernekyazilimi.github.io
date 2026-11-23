@@ -30,8 +30,8 @@ POLICIES = [('cerez-politikasi', 'Çerez politikası'), ('kvkk', 'KVKK aydınlat
 policy_links = ''.join(f'<a href="/{slug}/">{label}</a>' for slug, label in POLICIES)
 
 def shell(slug, title, description, body, breadcrumb_label=None, brand_in_title=False, extra_graph=None,
-          canonical=True, noindex=False):
-    url = BASE + ('/' + slug + '/' if slug else '/')
+          canonical=True, noindex=False, page_url=None):
+    url = page_url or BASE + ('/' + slug + '/' if slug else '/')
     full_title = title if brand_in_title else f'{title} — Dernek Yazılımı'
     canonical_tag = f'<link rel="canonical" href="{url}">' if canonical else ''
     og_url_tag = f'<meta property="og:url" content="{url}">' if canonical else ''
@@ -42,7 +42,7 @@ def shell(slug, title, description, body, breadcrumb_label=None, brand_in_title=
          'description': description, 'inLanguage': 'tr-TR', 'isPartOf': {'@id': BASE+'/#website'},
          'primaryImageOfPage': {'@type': 'ImageObject', 'url': BASE+'/assets/seo/sosyal-paylasim.png', 'width': 1200, 'height': 630}}
     ]
-    if not slug:
+    if url == BASE + '/':
         graph.append({
             '@type': 'SoftwareApplication',
             '@id': BASE+'/#software',
@@ -85,7 +85,7 @@ def shell(slug, title, description, body, breadcrumb_label=None, brand_in_title=
 <meta name="twitter:image:alt" content="Dernek Yazılımı — özgür dernek yönetim yazılımı">
 <script type="application/ld+json">{structured_data}</script>
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css?v=20261123-sss">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css?v=20261123-sss-404">
 </head><body>
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="header wrap site-header"><a class="brand" href="/" aria-label="Dernek Yazılımı ana sayfa">{BRAND}</a><nav aria-label="Ana menü">{links}<a class="nav-cta" href="https://github.com/dernekyazilimi">GitHub ↗</a></nav></header>
@@ -125,8 +125,60 @@ for slug, title in POLICIES:
     folder = ROOT/slug
     folder.mkdir(exist_ok=True)
     (folder/'index.html').write_text(shell(slug, title, title + ' — Dernek Yazılımı tanıtım sitesi.', body))
+
+# Sık sorulan sorular: bağımsız sayfa, ana sayfadaki SSS'den daha kapsamlı.
+SSS_TITLE = 'Sık Sorulan Sorular: Ücretsiz Dernek Yazılımı'
+SSS_DESCRIPTION = ('Ücretsiz dernek yazılımının lisansı, kurulumu, ödeme entegrasyonları, veri güvenliği '
+                   've katkı süreçleri hakkında sık sorulan sorular ve yanıtları.')
+sss_content = (ROOT/'content/sss.html').read_text()
+sss_headings = re.findall(r'<section id="([^"]+)"><h2>(.*?)</h2>', sss_content)
+sss_toc = ''.join(f'<a href="#{anchor}">{heading}</a>' for anchor, heading in sss_headings)
+sss_body = (
+    f'<main id="icerik"><div class="wrap document-hero">'
+    f'<p class="breadcrumb"><a href="/">Ana sayfa</a> / Sık sorulan sorular</p>'
+    f'<p class="eyebrow">DERNEK YAZILIMI / SSS</p>'
+    f'<h1>Sık sorulan sorular.</h1>'
+    f'<p class="intro">{SSS_DESCRIPTION} Aradığınız yanıt burada yoksa '
+    f'<a href="https://github.com/dernekyazilimi/dernekyazilimi/issues">GitHub üzerinden sorabilirsiniz</a>.</p></div>'
+    f'<div class="wrap document-layout"><aside class="toc"><p class="eyebrow">BU SAYFADA</p>'
+    f'<nav aria-label="Sayfa içeriği">{sss_toc}</nav></aside>'
+    f'<article class="document">{sss_content}'
+    f'<div class="source-note"><strong>Daha fazlası</strong>'
+    f'<p><a href="/moduller/">Modüller</a> · <a href="/entegrasyonlar/">Entegrasyonlar</a> · '
+    f'<a href="/kurulum/">Kurulum rehberi</a> · <a href="/lisans/">Lisans</a> · <a href="/katki/">Katkı rehberi</a></p>'
+    f'<p>Yanıtlar 23 Kasım 2026 tarihinde güncellenmiştir. Yazılım sürümüne göre ayrıntılar değişebilir; '
+    f'kesin bilgi için proje belgelerine başvurun.</p></div>'
+    f'<a class="next-page" href="/katki/"><span>Sıradaki sayfa</span><strong>Katkıda bulunun →</strong></a>'
+    f'</article></div></main>'
+)
+(ROOT/'sss').mkdir(exist_ok=True)
+(ROOT/'sss/index.html').write_text(shell('sss', SSS_TITLE, SSS_DESCRIPTION, sss_body,
+                                         breadcrumb_label='Sık sorulan sorular',
+                                         extra_graph=faq_nodes(sss_content, BASE + '/sss/#faq')))
+
+# 404: GitHub Pages kök dizindeki 404.html dosyasını sunar.
+not_found_body = (
+    '<main id="icerik" class="wrap document error-page">'
+    '<p class="eyebrow">404 / SAYFA BULUNAMADI</p>'
+    '<h1>Bu sayfa taşınmış olabilir.</h1>'
+    '<p>Aradığınız adres değişmiş ya da hiç var olmamış olabilir. Aşağıdaki bağlantılardan devam edebilirsiniz.</p>'
+    '<div class="start-grid">'
+    '<a href="/"><span class="step">01</span><h3>Ana sayfa <span aria-hidden="true">↗</span></h3>'
+    '<p>Dernek Yazılımı genel bakış</p></a>'
+    '<a href="/moduller/"><span class="step">02</span><h3>Modüller <span aria-hidden="true">↗</span></h3>'
+    '<p>Üye, aidat, bağış ve e-Yazışma</p></a>'
+    '<a href="/sss/"><span class="step">03</span><h3>Sık sorulan sorular <span aria-hidden="true">↗</span></h3>'
+    '<p>Merak edilenler ve yanıtları</p></a>'
+    '</div>'
+    '<p class="setup-note">Bağlantı kırıksa <a href="https://github.com/dernekyazilimi/dernekyazilimi.github.io/issues">'
+    'bildirebilirsiniz</a>.</p>'
+    '</main>'
+)
+(ROOT/'404.html').write_text(shell('', 'Sayfa bulunamadı', 'Aradığınız sayfa bulunamadı.',
+                                   not_found_body, page_url=BASE + '/404.html',
+                                   canonical=False, noindex=True))
 today = '2026-11-17'
-urls = [BASE+'/'] + [BASE+'/'+p[0]+'/' for p in PAGES + POLICIES]
+urls = [BASE+'/'] + [BASE+'/'+p[0]+'/' for p in PAGES + POLICIES] + [BASE+'/sss/']
 (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <url>\n    <loc>{u}</loc>\n    <lastmod>{today}</lastmod>\n  </url>\n' for u in urls)+'</urlset>\n')
 (ROOT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /content/\nDisallow: /scripts/\n\nSitemap: {BASE}/sitemap.xml\n')
 llms_lines = [
@@ -138,6 +190,7 @@ llms_lines = [
 ]
 for slug, label, title, headline, description, _ in PAGES:
     llms_lines.append(f'- [{label}]({BASE}/{slug}/): {headline} {description}')
+llms_lines.append(f'- [Sık sorulan sorular]({BASE}/sss/): {SSS_DESCRIPTION}')
 
 llms_lines.extend([
     '',
