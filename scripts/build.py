@@ -13,7 +13,7 @@ PAGES = [
  ('hakkinda', 'Proje hakkında', 'Proje Hakkında: Açık Kaynak Dernek Yazılımı', 'Ortak ihtiyaçlardan doğan özgür yazılım.', 'Linux Kullanıcıları Derneği deneyiminden doğan ücretsiz ve açık kaynak dernek yazılımının hikâyesi, mimarisi ve teknik temeli.', ['README.md', 'CLAUDE.md']),
  ('moduller', 'Modüller', 'Modüller: Üye, Aidat, Bağış ve e-Yazışma', 'Modüller: Üye Takibi, Aidat, Bağış ve e-Yazışma', 'Üye takip, aidat yönetimi, bağış tahsilatı, gönüllü organizasyonu, duyurular ve e-Yazışma resmî evrak süreçlerini kapsayan modüler dernek araçları.', ['CLAUDE.md', 'config/modules.php']),
  ('entegrasyonlar', 'Entegrasyonlar', 'Entegrasyonlar: Ödeme, SMS, e-İmza ve DERBİS', 'Derneğinizin araçlarıyla bağlantıda.', 'iyzico kartlı ödeme, NetGSM SMS, e-posta, eyazisma.com.tr e-imza araçları, DERBİS üye aktarımı ve WordPress web sitesi API entegrasyonları.', ['CLAUDE.md', 'INSTALLING.md']),
- ('kurulum', 'Kurulum', 'Kurulum Rehberi: Sunucu Gereksinimleri', 'Kendi sunucunuzda, kendi derneğiniz için.', 'Self-hosted dernek yazılımı kurulumu: PHP 8.4, Laravel ve MySQL gereksinimleri, yerel geliştirme ortamı, ortam değişkenleri ve canlı sunucu işletim rehberi.', ['INSTALLING.md', 'CLAUDE.md', 'composer.json', 'package.json']),
+ ('kurulum', 'Kurulum', 'Kurulum Rehberi: Sunucu ve Ortam Gereksinimleri', 'Kendi sunucunuzda, kendi derneğiniz için kurulum rehberi.', 'Self-hosted dernek yazılımı kurulumu: PHP 8.4, Laravel ve MySQL gereksinimleri, yerel geliştirme ortamı, ortam değişkenleri ve canlı sunucu işletim rehberi.', ['INSTALLING.md', 'CLAUDE.md', 'composer.json', 'package.json']),
  ('katki', 'Katkıda bulunun', 'Katkıda Bulunun: Geliştirici Rehberi', 'Bir katkı, birçok derneğe fayda.', 'Dernek Yazılımı\'na kod, test, dokümantasyon, hata bildirimi ve kullanım deneyimiyle katkıda bulunma rehberi ve topluluk kuralları.', ['CONTRIBUTING.md', 'CLAUDE.md']),
  ('lisans', 'Lisans', 'Lisans: GNU GPLv3 Açık Kaynak Lisansı', 'Özgür yazılımın ortak zemini.', 'Dernek Yazılımı\'nın özgür yazılım ilkelerini ve kullanıcı haklarını koruyan GNU General Public License v3 (GPLv3) tam lisans metni.', ['README.md', 'LICENSE', 'LICENSE.md']),
 ]
@@ -85,7 +85,7 @@ def shell(slug, title, description, body, breadcrumb_label=None, brand_in_title=
 <meta name="twitter:image:alt" content="Dernek Yazılımı — özgür dernek yönetim yazılımı">
 <script type="application/ld+json">{structured_data}</script>
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css?v=20261123-sss2">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css?v=20261123-sss3">
 </head><body>
 <a class="skip" href="#icerik">İçeriğe geç</a>
 <header class="header wrap site-header"><a class="brand" href="/" aria-label="Dernek Yazılımı ana sayfa">{BRAND}</a><nav aria-label="Ana menü">{links}<a class="nav-cta" href="https://github.com/dernekyazilimi">GitHub ↗</a></nav></header>
