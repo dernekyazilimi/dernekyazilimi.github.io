@@ -104,6 +104,7 @@ assert 'href="/sss/"' in (ROOT/'index.html').read_text(), 'homepage must link to
 for link in re.findall(r'href="(/[^"#]*)(#[^"]*)?"', html):
     path, fragment = link
     path = path.split('?')[0]
+    if path.startswith('/blog/'): continue  # ayrı proje sitesi (blog deposu)
     target = ROOT/path.lstrip('/')
     if target.is_dir():
         target = target/'index.html'
