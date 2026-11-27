@@ -21,6 +21,7 @@ for path,p in pages.items():
     for link in p.links:
         u=urlsplit(link)
         if u.scheme or u.netloc: continue
+        if u.path.startswith('/blog/'): continue  # ayrı proje sitesi (blog deposu)
         target=(ROOT/u.path.lstrip('/')) if u.path.startswith('/') else (path.parent/u.path if u.path else path)
         if target.is_dir(): target=target/'index.html'
         assert target.exists(),(path,link)

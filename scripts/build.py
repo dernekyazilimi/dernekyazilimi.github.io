@@ -17,7 +17,7 @@ PAGES = [
  ('katki', 'Katkıda bulunun', 'Katkıda Bulunun: Geliştirici Rehberi', 'Bir katkı, birçok derneğe fayda.', 'Dernek Yazılımı\'na kod, test, dokümantasyon, hata bildirimi ve kullanım deneyimiyle katkıda bulunma rehberi ve topluluk kuralları.', ['CONTRIBUTING.md', 'CLAUDE.md']),
  ('lisans', 'Lisans', 'Lisans: GNU GPLv3 Açık Kaynak Lisansı', 'Özgür yazılımın ortak zemini.', 'Dernek Yazılımı\'nın özgür yazılım ilkelerini ve kullanıcı haklarını koruyan GNU General Public License v3 (GPLv3) tam lisans metni.', ['README.md', 'LICENSE', 'LICENSE.md']),
 ]
-NAV = [('hakkinda', 'Proje'), ('moduller', 'Modüller'), ('entegrasyonlar', 'Entegrasyonlar'), ('kurulum', 'Kurulum'), ('katki', 'Katkı'), ('sss', 'SSS')]
+NAV = [('hakkinda', 'Proje'), ('moduller', 'Modüller'), ('entegrasyonlar', 'Entegrasyonlar'), ('kurulum', 'Kurulum'), ('katki', 'Katkı'), ('sss', 'SSS'), ('blog', 'Blog')]
 BRAND = '<img class="brand-svg" src="/assets/logo/logo.svg" alt="Dernek Yazılımı" width="209" height="40">'
 GTM_ID = os.environ.get('GTM_ID', 'GTM-MW95NM39')
 if GTM_ID and not re.fullmatch(r'GTM-[A-Z0-9]+', GTM_ID):
