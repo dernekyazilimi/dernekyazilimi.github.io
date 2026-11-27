@@ -66,9 +66,15 @@ for path in pages:
     if path!=ROOT/'index.html':
         crumb=next(x for x in graph if x['@type']=='BreadcrumbList')
         assert crumb['itemListElement'][-1]['item']==canonical
-sitemap=ET.parse(ROOT/'sitemap.xml')
-urls=[n.text for n in sitemap.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
+SM='{http://www.sitemaps.org/schemas/sitemap/0.9}'
+sitemap=ET.parse(ROOT/'sitemap-pages.xml')
+urls=[n.text for n in sitemap.findall('.//'+SM+'loc')]
 assert len(urls)==len(set(urls)) and set(urls)==set(canonical_urls)
+# sitemap.xml bir sitemap index olmalı ve sayfa + blog sitemaplerini göstermeli
+index=ET.parse(ROOT/'sitemap.xml')
+assert index.getroot().tag==SM+'sitemapindex', 'sitemap.xml must be a sitemap index'
+child=[n.text for n in index.findall('.//'+SM+'loc')]
+assert set(child)=={BASE+'/sitemap-pages.xml', BASE+'/blog/sitemap.xml'},(child,'sitemap index')
 robots=(ROOT/'robots.txt').read_text()
 assert f'Sitemap: {BASE}/sitemap.xml' in robots
 from urllib.robotparser import RobotFileParser

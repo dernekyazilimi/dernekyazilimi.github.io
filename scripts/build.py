@@ -181,7 +181,10 @@ not_found_body = (
                                    canonical=False, noindex=True))
 today = '2026-11-17'
 urls = [BASE+'/'] + [BASE+'/'+p[0]+'/' for p in PAGES + POLICIES] + [BASE+'/sss/']
-(ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <url>\n    <loc>{u}</loc>\n    <lastmod>{today}</lastmod>\n  </url>\n' for u in urls)+'</urlset>\n')
+(ROOT/'sitemap-pages.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <url>\n    <loc>{u}</loc>\n    <lastmod>{today}</lastmod>\n  </url>\n' for u in urls)+'</urlset>\n')
+# sitemap.xml bir sitemap index: ana site sayfaları + blog (ayrı proje deposu)
+child_sitemaps = [BASE+'/sitemap-pages.xml', BASE+'/blog/sitemap.xml']
+(ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <sitemap>\n    <loc>{s}</loc>\n    <lastmod>{today}</lastmod>\n  </sitemap>\n' for s in child_sitemaps)+'</sitemapindex>\n')
 (ROOT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /content/\nDisallow: /scripts/\n\nSitemap: {BASE}/sitemap.xml\n')
 llms_lines = [
     '# Dernek Yazılımı',
